@@ -10,10 +10,77 @@
           have to be like that!”<br /><span class="text-sm">Cammy Bean</span>
         </p>
       </div>
-      <div class="p-10">
-        <p class="text-sm font-semibold hover:cursor-pointer text-right">
+      <div class="p-10" x-data="{ showLoginModal: false }" x-cloak>
+        <p
+          class="text-sm font-semibold hover:cursor-pointer text-right"
+          @click="showLoginModal = true"
+        >
           Prijava
         </p>
+        <div
+          x-show="showLoginModal"
+          @click.outside="showLoginModal = false"
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 transform scale-95"
+          x-transition:enter-end="opacity-100 transform scale-100"
+          x-transition:leave="transition ease-in duration-200"
+          x-transition:leave-start="opacity-100 transform scale-100"
+          x-transition:leave-end="opacity-0 transform scale-95"
+          class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
+        >
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+            <button
+              @click="showLoginModal = false"
+              class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+            <h1 class="text-2xl font-bold mb-4">Prijava</h1>
+            <form action="/login" method="post">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="block w-full rounded-md border-0 mt-2 mb-4 shadow-sm py-2 pl-3 ring-1 ring-gray-300 placeholder:text-gray-400 text-sm leading-5"
+                placeholder="Vaše korisničko ime"
+                autocomplete="username"
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="block w-full rounded-md border-0 mb-4 shadow-sm py-2 pl-3 ring-1 ring-gray-300 placeholder:text-gray-400 text-sm leading-5"
+                placeholder="Vaša lozinka"
+                autocomplete="current-password"
+              />
+              <button
+                type="submit"
+                class="w-full bg-gray-900 text-white rounded-md py-2 text-sm font-semibold hover:bg-gray-800 transition-colors"
+              >
+                Prijava
+              </button>
+            </form>
+            <p class="text-sm mt-4 text-gray-500">
+              Nemate račun?
+              <a href="/register" class="text-blue-600 hover:underline"
+                >Registrirajte se</a
+              >
+            </p>
+          </div>
+        </div>
         <div class="flex flex-col justify-center items-center h-full">
           <h1 class="text-2xl font-bold">Stvorite račun</h1>
           <p class="text-sm text-center text-gray-500">
@@ -27,6 +94,7 @@
                 id="email"
                 class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 placeholder="name@example.com"
+                required
                 autocomplete="email"
               />
               <input type="submit" value="Registracija s e-mail adresom" />
