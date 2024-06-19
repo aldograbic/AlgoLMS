@@ -1,8 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <th:block th:insert="~{fragments/head :: head}"></th:block>
-    <title>Prijava | AlgoLMS</title>
-  </head>
-  <body></body>
+  <head th:insert="~{fragments/head :: head(title='Prijava | AlgoLMS')}"></head>
+  <body>
+    <div class="grid grid-cols-2 min-h-screen">
+      <div class="bg-black p-10 text-white flex flex-col">
+        <a href="/" class="font-semibold text-lg">AlgoLMS</a>
+        <p class="mt-auto text-lg">
+          “People expect to be bored by eLearning — let’s show them it doesn’t
+          have to be like that!”<br /><span class="text-sm">Cammy Bean</span>
+        </p>
+      </div>
+      <div class="p-10">
+        <p class="text-sm font-semibold hover:cursor-pointer text-right">
+          Prijava
+        </p>
+        <div class="flex flex-col justify-center items-center h-full">
+          <h1 class="text-2xl font-bold">Stvorite račun</h1>
+          <p class="text-sm text-center text-gray-500">
+            Unesite svoju e-mail adresu kako biste kreirali svoj račun
+          </p>
+          <div>
+            <form action="" method="post">
+              <input
+                type="text"
+                name="email"
+                id="email"
+                class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                placeholder="name@example.com"
+                autocomplete="email"
+              />
+              <input type="submit" value="Registracija s e-mail adresom" />
+            </form>
+            <div class="flex items-center mt-6 w-full">
+              <div class="border-t border-gray-300 flex-grow"></div>
+              <div class="px-3 text-gray-500 text-xs uppercase">
+                ili nastavite s
+              </div>
+              <div class="border-t border-gray-300 flex-grow"></div>
+            </div>
+            <form action="" method="post">
+              <button
+                type="submit"
+                class="flex items-center justify-center gap-2 mt-6 rounded-md shadow-sm py-2 px-4 text-sm w-96 font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-100 transition-colors"
+              >
+                <img
+                  class="w-4 h-4"
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  alt="Google Logo"
+                />
+                <span>Google</span>
+              </button>
+            </form>
+          </div>
+          <p class="text-sm mt-6 w-[40ch] text-gray-500 text-center">
+            Klikom na nastavi prihvaćate naše
+            <a
+              href="/terms-and-conditions"
+              class="underline hover:text-gray-700"
+              >Uvjete pružanja usluge</a
+            >
+            i
+            <a href="/privacy-policy" class="underline hover:text-gray-700"
+              >Pravila privatnosti</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
