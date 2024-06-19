@@ -1,10 +1,12 @@
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    username VARCHAR(50) UNIQUE DEFAULT NULL,
+    password VARCHAR(255) DEFAULT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    full_name VARCHAR(100),
-    role ENUM('ROLE_ADMIN', 'ROLE_INSTRUCTOR', 'ROLE_STUDENT') NOT NULL,
+    full_name VARCHAR(100) DEFAULT NULL,
+    role ENUM('ROLE_ADMIN', 'ROLE_INSTRUCTOR', 'ROLE_STUDENT') DEFAULT 'ROLE_STUDENT' NOT NULL,
+    email_verified boolean DEFAULT false,
+	confirmation_token varchar(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
