@@ -2,15 +2,22 @@
 <html lang="en">
   <head th:insert="~{fragments/head :: head(title='Prijava | AlgoLMS')}"></head>
   <body>
-    <div class="grid grid-cols-2 min-h-screen">
+    <div class="flex min-h-screen">
       <div class="bg-black p-10 text-white flex flex-col">
         <a href="/" class="font-semibold text-lg">AlgoLMS</a>
+        <script
+          type="module"
+          src="https://unpkg.com/@splinetool/viewer@1.9.3/build/spline-viewer.js"
+        ></script>
+        <spline-viewer
+          url="https://prod.spline.design/53zPWNyP1mVc5K7h/scene.splinecode"
+        ></spline-viewer>
         <p class="mt-auto text-lg">
           “People expect to be bored by eLearning — let’s show them it doesn’t
           have to be like that!”<br /><span class="text-sm">Cammy Bean</span>
         </p>
       </div>
-      <div class="p-10" x-data="{ showLoginModal: false }" x-cloak>
+      <div class="flex-1 p-10" x-data="{ showLoginModal: false }" x-cloak>
         <p
           class="text-sm font-semibold hover:cursor-pointer text-right"
           @click="showLoginModal = true"
@@ -51,12 +58,12 @@
             <h1 class="text-2xl font-bold mb-4">Prijava</h1>
             <form action="/login" method="post">
               <input
-                type="text"
-                name="username"
-                id="username"
+                type="email"
+                name="email"
+                id="email"
                 class="block w-full rounded-md border-0 mt-2 mb-4 shadow-sm py-2 pl-3 ring-1 ring-gray-300 placeholder:text-gray-400 text-sm leading-5"
-                placeholder="Vaše korisničko ime"
-                autocomplete="username"
+                placeholder="Vaša e-mail adresa"
+                autocomplete="email"
               />
               <input
                 type="password"
@@ -73,12 +80,6 @@
                 Prijava
               </button>
             </form>
-            <p class="text-sm mt-4 text-gray-500">
-              Nemate račun?
-              <a href="/register" class="text-blue-600 hover:underline"
-                >Registrirajte se</a
-              >
-            </p>
           </div>
         </div>
         <div class="flex flex-col justify-center items-center h-full">

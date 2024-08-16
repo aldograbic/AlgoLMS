@@ -13,24 +13,27 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    
-    private final CustomUserDetailsService customUserDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
+    @Autowired
+    private DatabaseLoginFailureHandler databaseLoginFailureHandler;
+     
+    @Autowired
+    private DatabaseLoginSuccessHandler databaseLoginSuccessHandler;
+    
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
 	private PasswordEncoder passwordEncoder;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf((csrf -> csrf
                 .disable()))
             .authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                .requestMatchers("/", "/login", "/register", "/confirm", "/privacy-policy", "/terms-and-conditions").permitAll()
+                .requestMatchers("/", "/login", "/register", "/confirm", "/setup", "/privacy-policy", "/terms-and-conditions").permitAll()
                 // .requestMatchers("/user-dashboard").hasRole("USER")
                 // .requestMatchers("/admin-dashboard").hasRole("ADMIN")
                 // .requestMatchers("/dashboard", "/contact-info").hasAnyRole("TENANT", "OWNER", "AGENT")
@@ -40,6 +43,7 @@ public class SecurityConfig {
             .formLogin((formLogin) -> formLogin
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
+                .usernameParameter("email")
                 .failureHandler(databaseLoginFailureHandler)
                 .successHandler(databaseLoginSuccessHandler)
                 .permitAll()
@@ -59,13 +63,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-
-    @Autowired
-    private DatabaseLoginFailureHandler databaseLoginFailureHandler;
-     
-    @Autowired
-    private DatabaseLoginSuccessHandler databaseLoginSuccessHandler;
 }

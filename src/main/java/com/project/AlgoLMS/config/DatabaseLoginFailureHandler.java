@@ -22,8 +22,8 @@ public class DatabaseLoginFailureHandler extends SimpleUrlAuthenticationFailureH
 
         if (exception instanceof BadCredentialsException) {
             response.sendRedirect("/login?error");
-        // } else if (exception instanceof EmailNotVerifiedException) {
-        //     response.sendRedirect("/login?notVerified");
+        } else if (exception instanceof EmailNotVerifiedException) {
+            response.sendRedirect("/login?notVerified");
         } else if (exception instanceof InternalAuthenticationServiceException) {
             response.sendRedirect("/login?notVerified");
         } else {

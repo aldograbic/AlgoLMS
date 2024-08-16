@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import com.project.AlgoLMS.repository.UserRepository;
+import com.project.AlgoLMS.repository.user.UserRepository;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +24,6 @@ public class DatabaseLoginSuccessHandler extends SavedRequestAwareAuthentication
     
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        response.sendRedirect("/?success");
+        response.sendRedirect("/dashboard?success");
     }
 }

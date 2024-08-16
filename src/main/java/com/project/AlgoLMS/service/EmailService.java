@@ -1,29 +1,21 @@
 package com.project.AlgoLMS.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class EmailService {
 
     @Autowired
-    private JavaMailSender emailSender;
-    
-    @Value("${spring.mail.username}")
-    private String sender;
+    private JavaMailSender mailSender;
 
-    public void sendMessage(String to, String subject, String text) {
-
-        SimpleMailMessage message = new SimpleMailMessage(); 
-        message.setFrom(sender);
-        message.setTo(to); 
-        message.setSubject(subject); 
-        message.setText(text);
-
-        emailSender.send(message);
+    public void sendConfirmationEmail(String to, String link) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Confirm your registration");
+        message.setText("Please click the following link to confirm your registration: " + link);
+        mailSender.send(message);
     }
 }
-
