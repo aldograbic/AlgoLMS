@@ -4,6 +4,8 @@
     <th:block
       th:insert="~{fragments/head :: head(title='Postavite račun | AlgoLMS')}"
     ></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
   </head>
   <body>
     <div class="flex min-h-screen">
@@ -22,34 +24,38 @@
         </p>
       </div>
       <div class="flex-1 p-10">
-        <a
-          href="/"
-          class="text-sm block items-center gap-1 font-semibold hover:cursor-pointer text-right"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-4 mb-0.5"
+        <div class="flex justify-end">
+          <a
+            href="/"
+            class="text-sm inline-flex items-center gap-1 font-semibold hover:cursor-pointer"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-            />
-          </svg>
-          Natrag na početnu
-        </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4 mb-0.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              />
+            </svg>
+            Natrag na početnu
+          </a>
+        </div>
 
         <div class="flex flex-col justify-center items-center h-full">
-          <h1 class="text-2xl font-bold">Dovršite postavljanje svog računa</h1>
+          <h1 class="text-2xl font-bold">Dovršite postavljanje računa</h1>
           <p class="text-sm text-center text-gray-500">
-            Unesite svoju e-mail adresu kako biste kreirali svoj račun
+            Nakon dovršetka postavljanja, omogućen vam je pristup platformi
+            AlgoLMS
           </p>
           <div>
-            <form action="/setup" method="post">
+            <form action="/setup" method="POST">
+              <input type="hidden" name="token" th:value="${token}" />
               <input
                 type="text"
                 name="fullName"
@@ -62,6 +68,7 @@
               <div class="relative">
                 <input
                   id="hs-toggle-password"
+                  name="password"
                   type="password"
                   placeholder="Vaša lozinka"
                   class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
@@ -118,7 +125,7 @@
               </div>
               <div class="relative">
                 <input
-                  id="hs-toggle-password"
+                  id="hs-toggle-password2"
                   type="password"
                   placeholder="Potvrite lozinku"
                   class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
@@ -126,7 +133,7 @@
                 <button
                   type="button"
                   data-hs-toggle-password='{
-                  "target": "#hs-toggle-password"
+                  "target": "#hs-toggle-password2"
                 }'
                   class="absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600"
                 >
@@ -341,16 +348,16 @@
                       class="mt-4 flex flex-wrap justify-center text-sm leading-6 text-gray-600"
                     >
                       <span class="pe-1 font-medium text-gray-800">
-                        Drop your file here or
+                        Prenesite svoju profilnu sliku ovdje ili
                       </span>
                       <span
                         class="bg-white font-semibold text-blue-600 hover:text-blue-700 rounded-lg decoration-2 hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2"
-                        >browse</span
+                        >pretražite</span
                       >
                     </div>
 
                     <p class="mt-1 text-xs text-gray-400">
-                      Pick a photo up to 2MB.
+                      Odaberite sliku do 2 MB.
                     </p>
                   </div>
                 </div>

@@ -53,7 +53,7 @@ public class RegistrationController {
             user.setPassword(encyptedPassword);
             user.setFullName(fullName);
             user.setConfirmationToken(null);
-            userRepository.update(user);
+            userRepository.saveFull(user);
 
             UserProfile userProfile = new UserProfile();
             userProfile.setUserId(user.getUserId());
@@ -61,7 +61,7 @@ public class RegistrationController {
             userProfile.setProfilePicture(profilePicture);
             userRepository.saveUserProfileDetails(userProfile);
 
-            model.addAttribute("message", "Registracija završena! Sada se možete prijaviti.");
+            model.addAttribute("successMessage", "Registracija završena! Sada se možete prijaviti.");
             return "login";
         } else {
             model.addAttribute("message", "Nevažeći token, molimo kontaktirajte podršku.");
@@ -73,7 +73,8 @@ public class RegistrationController {
     public String registerUser(@RequestParam("email") String email, Model model) {
         
         if (userRepository.existsByEmail(email)) {
-            model.addAttribute("message", "Račun s ovom e-mail adresom je već registriran.");
+            model.addAttribute("successMessage", "Račun s ovom e-mail adresom je već registriran.");
+            return "login";
 
         } else {
             String confirmationToken = UUID.randomUUID().toString();

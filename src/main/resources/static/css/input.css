@@ -22,4 +22,8 @@
   input[type="submit"] {
     @apply bg-black text-white text-center rounded-md py-2 px-4 text-sm w-96 hover:cursor-pointer hover:bg-gray-800 transition-colors;
   }
+
+  h1 {
+    @apply text-2xl font-bold;
+  }
 }

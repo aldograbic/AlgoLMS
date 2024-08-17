@@ -18,6 +18,9 @@
         </p>
       </div>
       <div class="flex-1 p-10" x-data="{ showLoginModal: false }" x-cloak>
+        <th:block
+          th:insert="~{fragments/successMessage :: successMessage}"
+        ></th:block>
         <p
           class="text-sm font-semibold hover:cursor-pointer text-right"
           @click="showLoginModal = true"
