@@ -16,7 +16,13 @@
         <div class="space-y-4 sm:space-y-7">
           <!-- Card Section -->
 
-          <form>
+          <form action="/courses/add" method="POST">
+            <input
+              type="hidden"
+              name="instructorId"
+              th:value="${user.userId}"
+            />
+
             <!-- Card -->
             <div class="bg-white rounded-xl shadow dark:bg-neutral-900">
               <div
@@ -110,9 +116,11 @@
 
                     <input
                       id="title"
+                      name="title"
                       type="text"
                       class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       placeholder="Unesite naziv tečaja"
+                      required
                     />
                   </div>
 
@@ -126,13 +134,14 @@
 
                     <textarea
                       id="description"
+                      name="description"
                       class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       rows="6"
                       placeholder="Detaljan sažetak bolje će objasniti vaš tečaj studentima. Naši će korisnici to vidjeti na vašoj namjenskoj stranici tečaja."
+                      required
                     ></textarea>
                   </div>
-
-                  <div class="space-y-2">
+                  <div x-data="{ isChecked: true }" class="space-y-2">
                     <label
                       for="accessType"
                       class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-200"
@@ -143,38 +152,58 @@
                       <label
                         for="accessType"
                         class="text-sm text-gray-500 me-3 dark:text-neutral-400"
-                        >Privatno</label
                       >
+                        Privatno
+                      </label>
                       <input
                         type="checkbox"
                         id="accessType"
                         name="accessType"
-                        checked
+                        x-model="isChecked"
                         class="relative w-[3.25rem] h-7 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-blue-600 checked:border-blue-600 focus:checked:border-blue-600 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-600 before:inline-block before:size-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-neutral-400 dark:checked:before:bg-blue-200"
                       />
                       <label
                         for="accessType"
                         class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
-                        >Javno</label
                       >
+                        Javno
+                      </label>
+                    </div>
+
+                    <!-- This section will be shown only when the checkbox is unchecked -->
+                    <div x-show="!isChecked" class="mt-4 space-y-2" x-cloak>
+                      <label
+                        for="accessCode"
+                        class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-200"
+                      >
+                        Pristupni kod
+                      </label>
+                      <input
+                        type="text"
+                        id="accessCode"
+                        name="accessCode"
+                        x-bind:required="!isChecked"
+                        class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                        placeholder="Unesite kod s kojim će studenti moći pristupiti vašem tečaju"
+                      />
                     </div>
                   </div>
 
                   <div class="space-y-2">
                     <label
-                      for="af-submit-app-upload-images"
+                      for="coverPhoto"
                       class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-200"
                     >
                       Naslovna fotografija
                     </label>
 
                     <label
-                      for="af-submit-app-upload-images"
+                      for="coverPhoto"
                       class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700"
                     >
                       <input
-                        id="af-submit-app-upload-images"
-                        name="af-submit-app-upload-images"
+                        id="coverPhoto"
+                        name="coverPhoto"
                         type="file"
                         class="sr-only"
                       />
@@ -214,7 +243,7 @@
 
                 <div class="mt-5 flex justify-center gap-x-2">
                   <button
-                    type="button"
+                    type="submit"
                     class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                   >
                     Dodaj tečaj

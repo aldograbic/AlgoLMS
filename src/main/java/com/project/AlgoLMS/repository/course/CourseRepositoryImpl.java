@@ -32,7 +32,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public void save(Course course) {
         String sql = "INSERT INTO courses (title, description, cover_photo, access_code, access_type, instructor_id) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                     "VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 course.getTitle(),
                 course.getDescription(),
