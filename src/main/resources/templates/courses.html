@@ -15,6 +15,7 @@
       <div class="w-full lg:ps-64">
         <div class="p-4 sm:p-6 space-y-4 sm:space-y-7">
           <h1>Istražite tečajeve</h1>
+
           <!-- Card Blog -->
           <div class="py-10 lg:py-14">
             <!-- Grid -->
@@ -65,21 +66,34 @@
                   class="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700"
                 >
                   <a
-                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                    class="w-full py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                     href="#"
                   >
                     Pregled
                   </a>
-                  <a
+
+                  <form
+                    action="/courses/enroll"
+                    method="POST"
+                    class="w-full"
                     th:if="${course.accessType == 'public'}"
-                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                    th:href="${'/courses/' + course.courseId}"
                   >
-                    Pridruži se
-                  </a>
+                    <input
+                      type="hidden"
+                      name="courseId"
+                      th:value="${course.courseId}"
+                    />
+                    <button
+                      type="submit"
+                      class="w-full py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                    >
+                      Pridruži se
+                    </button>
+                  </form>
+
                   <a
                     th:unless="${course.accessType == 'public'}"
-                    class="w-full py-3 px-4 inline-flex cursor-pointer justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                    class="w-full py-3 inline-flex cursor-pointer justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                     aria-haspopup="dialog"
                     aria-expanded="false"
                     aria-controls="hs-scale-animation-modal"
@@ -97,7 +111,9 @@
                     <div
                       class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center"
                     >
-                      <div
+                      <form
+                        action="/courses/enrollWithAccessCode"
+                        method="POST"
                         class="w-full flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70"
                       >
                         <div
@@ -139,6 +155,11 @@
                             natural lead-in to additional content.
                           </p>
                           <input
+                            type="hidden"
+                            name="courseId"
+                            th:value="${course.courseId}"
+                          />
+                          <input
                             id="accessCode"
                             name="accessCode"
                             type="text"
@@ -147,6 +168,7 @@
                             required
                           />
                         </div>
+
                         <div
                           class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700"
                         >
@@ -158,13 +180,13 @@
                             Zatvori
                           </button>
                           <button
-                            type="button"
+                            type="submit"
                             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                           >
                             Potvrdi
                           </button>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>

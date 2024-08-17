@@ -48,6 +48,16 @@ CREATE TABLE lessons (
     FOREIGN KEY (module_id) REFERENCES modules(module_id)
 );
 
+CREATE TABLE enrollments (
+    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_id INT,
+    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id),
+    UNIQUE (user_id, course_id)
+);
+
 CREATE TABLE content_schedule (
     schedule_id INT AUTO_INCREMENT PRIMARY KEY,
     lesson_id INT,
