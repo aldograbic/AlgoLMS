@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .requestMatchers("/", "/login", "/register", "/confirm", "/setup", "/privacy-policy", "/terms-and-conditions").permitAll()
                 // .requestMatchers("/user-dashboard").hasRole("USER")
                 // .requestMatchers("/admin-dashboard").hasRole("ADMIN")
-                // .requestMatchers("/dashboard", "/contact-info").hasAnyRole("TENANT", "OWNER", "AGENT")
+                .requestMatchers("/courses/add").hasAnyRole("ADMIN", "INSTRUCTOR")
                 // .requestMatchers("/properties", "/tenants").hasAnyRole("OWNER", "AGENT")
                 .anyRequest().authenticated()
             )

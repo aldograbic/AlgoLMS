@@ -21,6 +21,9 @@ CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    cover_photo VARCHAR(255),
+    access_code VARCHAR(255),
+    access_type ENUM('private', 'public') DEFAULT 'public' NOT NULL,
     instructor_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (instructor_id) REFERENCES users(user_id)

@@ -1,7 +1,7 @@
 package com.project.AlgoLMS.repository.user;
 
-import com.project.AlgoLMS.model.User;
-import com.project.AlgoLMS.model.UserProfile;
+import com.project.AlgoLMS.model.user.User;
+import com.project.AlgoLMS.model.userProfile.UserProfile;
 
 public interface UserRepository {
     
@@ -12,4 +12,6 @@ public interface UserRepository {
     void update(User user);
     void saveFull(User user);
     void saveUserProfileDetails(UserProfile userProfile);
+    User findById(Long userId);
+    UserProfile getUserProfileByUserId(Long userId);
 }

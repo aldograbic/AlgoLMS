@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.project.AlgoLMS.model.User;
-import com.project.AlgoLMS.model.UserProfile;
+import com.project.AlgoLMS.model.user.User;
+import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.user.UserRepository;
 import com.project.AlgoLMS.service.EmailService;
 

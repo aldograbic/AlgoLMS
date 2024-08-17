@@ -1,4 +1,6 @@
-package com.project.AlgoLMS.model;
+package com.project.AlgoLMS.model.userProfile;
+
+import com.project.AlgoLMS.model.user.User;
 
 public class UserProfile {
     
@@ -6,6 +8,8 @@ public class UserProfile {
     private Long userId;
     private String bio;
     private String profilePicture;
+
+    private User user;
 
     public Long getProfileId() {
         return profileId;
@@ -30,5 +34,11 @@ public class UserProfile {
     }
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

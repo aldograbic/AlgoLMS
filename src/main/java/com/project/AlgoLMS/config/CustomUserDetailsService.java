@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
-import com.project.AlgoLMS.model.User;
+import com.project.AlgoLMS.model.user.User;
 import com.project.AlgoLMS.repository.user.UserRepository;
 
 

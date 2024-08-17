@@ -1,6 +1,8 @@
-package com.project.AlgoLMS.model;
+package com.project.AlgoLMS.model.user;
 
 import java.sql.Timestamp;
+
+import com.project.AlgoLMS.model.userProfile.UserProfile;
 
 public class User {
     
@@ -12,6 +14,8 @@ public class User {
     private boolean emailVerified;
     private String confirmationToken;
     private Timestamp createdAt;
+
+    private UserProfile userProfile;
 
     public Long getUserId() {
         return userId;
@@ -60,5 +64,11 @@ public class User {
     }
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
-    } 
+    }
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 }
