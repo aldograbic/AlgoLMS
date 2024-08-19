@@ -95,12 +95,12 @@ public class CoursesController {
         }
 
         if (enrollmentRepository.existsByUserIdAndCourseId(user.getUserId(), courseId)) {
-            redirectAttributes.addFlashAttribute("error", "Već ste upisani na ovaj tečaj.");
+            redirectAttributes.addFlashAttribute("info", "Već ste upisani na ovaj tečaj.");
             return "redirect:/courses";
         }
 
         enrollmentRepository.save(new Enrollment(user.getUserId(), courseId));
-        redirectAttributes.addFlashAttribute("message", "Uspješno ste upisani na tečaj!");
+        redirectAttributes.addFlashAttribute("success", "Uspješno ste upisani na tečaj!");
 
         return "redirect:/courses/" + courseId;
     }
@@ -120,17 +120,17 @@ public class CoursesController {
         }
 
         if (enrollmentRepository.existsByUserIdAndCourseId(user.getUserId(), courseId)) {
-            redirectAttributes.addFlashAttribute("error", "Već ste upisani na ovaj tečaj.");
+            redirectAttributes.addFlashAttribute("info", "Već ste upisani na ovaj tečaj.");
             return "redirect:/courses";
         }
 
         if (!accessCode.equals(course.getAccessCode())) {
-            redirectAttributes.addFlashAttribute("message", "Pristupni kod je pogrešan.");
+            redirectAttributes.addFlashAttribute("error", "Pristupni kod je pogrešan.");
             return "redirect:/courses";
         }
 
         enrollmentRepository.save(new Enrollment(user.getUserId(), courseId));
-        redirectAttributes.addFlashAttribute("message", "Uspješno ste upisani na tečaj!");
+        redirectAttributes.addFlashAttribute("success", "Uspješno ste upisani na tečaj!");
 
         return "redirect:/courses/" + courseId;
     }
@@ -156,7 +156,7 @@ public class CoursesController {
     @PostMapping("/{courseId}/changeAccessCode")
     public String changeAccessCode(@PathVariable("courseId") Long courseId, @RequestParam("accessCode") String accessCode, RedirectAttributes redirectAttributes) {
         courseRepository.changeAccessCodeByCourseId(accessCode, courseId);
-        redirectAttributes.addFlashAttribute("message", "Pristupni kod uspješno promijenjen!");
+        redirectAttributes.addFlashAttribute("success", "Pristupni kod uspješno promijenjen!");
 
         return "redirect:/courses/" + courseId;
     }

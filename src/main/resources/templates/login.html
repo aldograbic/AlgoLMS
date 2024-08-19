@@ -2,7 +2,7 @@
 <html lang="en">
   <head th:insert="~{fragments/head :: head(title='Prijava | AlgoLMS')}"></head>
   <body>
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen dark:bg-neutral-900 dark:text-neutral-200">
       <div class="bg-black p-10 text-white flex flex-col">
         <a href="/" class="font-semibold text-lg">AlgoLMS</a>
         <script
@@ -38,7 +38,9 @@
           x-transition:leave-end="opacity-0 transform scale-95"
           class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
         >
-          <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+          <div
+            class="bg-white p-6 rounded-lg shadow-lg w-96 relative dark:bg-neutral-900 dark:text-neutral-200"
+          >
             <button
               @click="showLoginModal = false"
               class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"

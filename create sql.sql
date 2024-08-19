@@ -43,7 +43,7 @@ CREATE TABLE lessons (
     module_id INT,
     title VARCHAR(255) NOT NULL,
     content TEXT,
-    content_type ENUM('video', 'pdf', 'quiz', 'assignment') NOT NULL,
+    content_type ENUM('video', 'pdf', 'ppt', 'link', 'quiz', 'assignment') NOT NULL,
     order_index INT,
     FOREIGN KEY (module_id) REFERENCES modules(module_id)
 );
