@@ -12,6 +12,8 @@ public class Course {
     private int instructorId;
     private Timestamp createdAt;
 
+    private boolean isEnrolled;
+
     public Long getCourseId() {
         return courseId;
     }
@@ -59,5 +61,11 @@ public class Course {
     }
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+    public boolean isEnrolled() {
+        return isEnrolled;
+    }
+    public void setEnrolled(boolean isEnrolled) {
+        this.isEnrolled = isEnrolled;
     }
 }

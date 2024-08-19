@@ -57,4 +57,18 @@ public class CourseRepositoryImpl implements CourseRepository {
                 course.getCourseId()
         );
     }
+
+    @Override
+    public List<Course> findCoursesByUserId(Long userId) {
+        String sql = "SELECT c.* FROM courses c " +
+                     "JOIN enrollments e ON c.course_id = e.course_id " +
+                     "WHERE e.user_id = ?";
+        return jdbcTemplate.query(sql, new CourseRowMapper(), userId);
+    }
+
+    @Override
+    public void changeAccessCodeByCourseId(String accessCode, Long courseId) {
+        String sql="UPDATE courses SET access_code = ? WHERE course_id = ?";
+        jdbcTemplate.update(sql, accessCode, courseId);
+    }
 }

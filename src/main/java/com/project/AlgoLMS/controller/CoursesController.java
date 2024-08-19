@@ -38,15 +38,25 @@ public class CoursesController {
     @GetMapping
     public String getCoursesPage(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByEmail(username);
+    
         List<Course> courses = courseRepository.getCourses();
+    
+        for (Course course : courses) {
+            boolean isEnrolled = enrollmentRepository.existsByUserIdAndCourseId(user.getUserId(), course.getCourseId());
+            course.setEnrolled(isEnrolled);
+        }
+    
         model.addAttribute("courses", courses);
-
-        return "courses";
+        return "courses/courses";
     }
+    
 
     @GetMapping("/add")
     public String getAddCoursePage() {
-        return "add-course";
+        return "courses/add-course";
     }
 
     @PostMapping("/add")
@@ -126,11 +136,45 @@ public class CoursesController {
     }
 
     @GetMapping("/{courseId}")
-    public String getCoursePage(@PathVariable("courseId") Long courseId, Model model) {
+    public String getCoursePage(@PathVariable("courseId") Long courseId, Model model, RedirectAttributes redirectAttributes) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByEmail(username);
+
+        if (!enrollmentRepository.existsByUserIdAndCourseId(user.getUserId(), courseId)) {
+            redirectAttributes.addFlashAttribute("error", "Niste upisani u ovaj tečaj.");
+            return "redirect:/courses";
+        }
 
         Course course = courseRepository.findById(courseId);
         model.addAttribute("course", course);
 
-        return "course";
+        return "courses/course";
+    }
+
+    @PostMapping("/{courseId}/changeAccessCode")
+    public String changeAccessCode(@PathVariable("courseId") Long courseId, @RequestParam("accessCode") String accessCode, RedirectAttributes redirectAttributes) {
+        courseRepository.changeAccessCodeByCourseId(accessCode, courseId);
+        redirectAttributes.addFlashAttribute("message", "Pristupni kod uspješno promijenjen!");
+
+        return "redirect:/courses/" + courseId;
+    }
+
+    @GetMapping("/my")
+    public String getMyCoursesPage(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByEmail(username);
+
+        List<Course> courses = courseRepository.findCoursesByUserId(user.getUserId());
+        for (Course course : courses) {
+            boolean isEnrolled = enrollmentRepository.existsByUserIdAndCourseId(user.getUserId(), course.getCourseId());
+            course.setEnrolled(isEnrolled);
+        }
+        model.addAttribute("courses", courses);
+
+        return "courses/my-courses";
     }
 }

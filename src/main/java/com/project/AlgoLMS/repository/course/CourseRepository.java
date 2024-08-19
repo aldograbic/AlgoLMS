@@ -10,4 +10,6 @@ public interface CourseRepository {
     List<Course> getCourses();
     void save(Course course);
     void update(Course course);
+    public List<Course> findCoursesByUserId(Long userId);
+    void changeAccessCodeByCourseId(String accessCode, Long courseId);
 }
