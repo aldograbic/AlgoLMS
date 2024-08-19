@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.AlgoLMS.model.course.Course;
 import com.project.AlgoLMS.model.enrollment.Enrollment;
 import com.project.AlgoLMS.model.user.User;
+import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.course.CourseRepository;
 import com.project.AlgoLMS.repository.enrollment.EnrollmentRepository;
 import com.project.AlgoLMS.repository.user.UserRepository;
@@ -149,6 +150,9 @@ public class CoursesController {
 
         Course course = courseRepository.findById(courseId);
         model.addAttribute("course", course);
+
+        UserProfile instructorProfile = userRepository.getUserProfileByUserId(course.getInstructor().getUserId());
+        model.addAttribute("instructorProfile", instructorProfile);
 
         return "courses/course";
     }

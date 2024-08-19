@@ -2,6 +2,8 @@ package com.project.AlgoLMS.model.course;
 
 import java.sql.Timestamp;
 
+import com.project.AlgoLMS.model.user.User;
+
 public class Course {
     private Long courseId;
     private String title;
@@ -9,10 +11,11 @@ public class Course {
     private String coverPhoto;
     private String accessCode;
     private String accessType;
-    private int instructorId;
+    private Long instructorId;
     private Timestamp createdAt;
 
     private boolean isEnrolled;
+    private User instructor;
 
     public Long getCourseId() {
         return courseId;
@@ -50,10 +53,10 @@ public class Course {
     public void setAccessType(String accessType) {
         this.accessType = accessType;
     }
-    public int getInstructorId() {
+    public Long getInstructorId() {
         return instructorId;
     }
-    public void setInstructorId(int instructorId) {
+    public void setInstructorId(Long instructorId) {
         this.instructorId = instructorId;
     }
     public Timestamp getCreatedAt() {
@@ -67,5 +70,11 @@ public class Course {
     }
     public void setEnrolled(boolean isEnrolled) {
         this.isEnrolled = isEnrolled;
+    }
+    public User getInstructor() {
+        return instructor;
+    }
+    public void setInstructor(User instructor) {
+        this.instructor = instructor;
     }
 }

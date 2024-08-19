@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.AlgoLMS.model.course.Course;
 import com.project.AlgoLMS.model.course.CourseRowMapper;
+import com.project.AlgoLMS.repository.user.UserRepository;
 
 import java.util.List;
 
@@ -12,21 +13,23 @@ import java.util.List;
 public class CourseRepositoryImpl implements CourseRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserRepository userRepository;
 
-    public CourseRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public CourseRepositoryImpl(JdbcTemplate jdbcTemplate, UserRepository userRepository) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userRepository = userRepository;
     }
 
     @Override
     public Course findById(Long courseId) {
         String sql = "SELECT * FROM courses WHERE course_id = ?";
-        return jdbcTemplate.queryForObject(sql, new CourseRowMapper(), courseId);
+        return jdbcTemplate.queryForObject(sql, new CourseRowMapper(userRepository), courseId);
     }
 
     @Override
     public List<Course> getCourses() {
         String sql = "SELECT * FROM courses";
-        return jdbcTemplate.query(sql, new CourseRowMapper());
+        return jdbcTemplate.query(sql, new CourseRowMapper(userRepository));
     }
 
     @Override
@@ -63,7 +66,7 @@ public class CourseRepositoryImpl implements CourseRepository {
         String sql = "SELECT c.* FROM courses c " +
                      "JOIN enrollments e ON c.course_id = e.course_id " +
                      "WHERE e.user_id = ?";
-        return jdbcTemplate.query(sql, new CourseRowMapper(), userId);
+        return jdbcTemplate.query(sql, new CourseRowMapper(userRepository), userId);
     }
 
     @Override
