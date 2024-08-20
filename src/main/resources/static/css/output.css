@@ -966,11 +966,6 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .-ms-px {
   margin-inline-start: -1px;
 }
@@ -1729,6 +1724,11 @@ h1 {
 
 .stroke-gray-400 {
   stroke: #9ca3af;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-1 {

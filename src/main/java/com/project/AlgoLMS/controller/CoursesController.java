@@ -1,5 +1,6 @@
 package com.project.AlgoLMS.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.AlgoLMS.model.course.Course;
@@ -22,6 +24,7 @@ import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.course.CourseRepository;
 import com.project.AlgoLMS.repository.enrollment.EnrollmentRepository;
 import com.project.AlgoLMS.repository.user.UserRepository;
+import com.project.AlgoLMS.service.FileUploadService;
 
 @Controller
 @RequestMapping("/courses")
@@ -35,6 +38,9 @@ public class CoursesController {
 
     @Autowired
     private EnrollmentRepository enrollmentRepository;
+
+    @Autowired
+    private FileUploadService fileUploadService;
     
     @GetMapping
     public String getCoursesPage(Model model) {
@@ -61,25 +67,52 @@ public class CoursesController {
     }
 
     @PostMapping("/add")
-    public String addCourse(@ModelAttribute Course course, RedirectAttributes redirectAttributes) {
-    
-        if ("on".equals(course.getAccessType())) {
-            course.setAccessCode(null);
-            course.setAccessType("public");
-        } else {
-            course.setAccessType("private");
+public String addCourse(@RequestParam("title") String title,
+                        @RequestParam("description") String description,
+                        @RequestParam(value = "coverPhoto", required = false) MultipartFile coverPhoto,
+                        @RequestParam(value = "accessType", defaultValue = "public") String accessType,
+                        @RequestParam(value = "accessCode", required = false) String accessCode,
+                        @RequestParam("instructorId") Long instructorId,
+                        RedirectAttributes redirectAttributes) {
+    try {
+        // Handle cover photo upload
+        String coverPhotoUrl = null;
+        if (coverPhoto != null && !coverPhoto.isEmpty()) {
+            coverPhotoUrl = fileUploadService.uploadFile(coverPhoto);
+        }
 
-            if (course.getAccessCode() == null || course.getAccessCode().isEmpty()) {
+        // Process access type and code
+        if ("on".equals(accessType)) {
+            accessCode = null;
+            accessType = "private";
+        } else {
+            accessType = "public";
+
+            if (accessCode == null || accessCode.isEmpty()) {
                 redirectAttributes.addFlashAttribute("error", "Za privatne tečajeve potreban je pristupni kod.");
                 return "redirect:/courses/add";
             }
         }
-    
+
+        Course course = new Course();
+        course.setTitle(title);
+        course.setDescription(description);
+        course.setCoverPhoto(coverPhotoUrl);
+        course.setAccessType(accessType);
+        course.setAccessCode(accessCode);
+        course.setInstructorId(instructorId);
+
         courseRepository.save(course);
         redirectAttributes.addFlashAttribute("message", "Tečaj uspješno dodan!");
-    
-        return "redirect:/courses";
+
+    } catch (IOException e) {
+        redirectAttributes.addFlashAttribute("error", "Došlo je do pogreške pri uploadu fotografije.");
+        return "redirect:/courses/add";
     }
+
+    return "redirect:/courses";
+}
+
 
     @PostMapping("/enroll")
     public String enrollInCourse(@RequestParam("courseId") Long courseId, RedirectAttributes redirectAttributes) {

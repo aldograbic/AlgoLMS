@@ -13,6 +13,49 @@
       ></th:block>
       <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block>
       <div class="w-full lg:ps-64">
+        <div
+          th:if="${param.success}"
+          class="absolute right-6 top-6 max-w-xs bg-white border z-50 border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700"
+          role="alert"
+          tabindex="-1"
+          aria-labelledby="successMessage"
+          x-data="{ successMessage: true }"
+          x-show="successMessage"
+          x-init="setTimeout(() => {successMessage = false; history.replaceState({}, document.title, window.location.pathname); }, 5000)"
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 transform translate-y-4"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition ease-in duration-300"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform translate-y-4"
+        >
+          <div class="flex p-4">
+            <div class="shrink-0">
+              <svg
+                class="shrink-0 size-4 text-teal-500 mt-0.5"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ms-3">
+              <p
+                id="successMessage"
+                class="text-sm text-gray-700 dark:text-neutral-400"
+              >
+                Dobrodošli/a,
+                <span th:text="${user.fullName}"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div class="p-4 sm:p-6 space-y-4 sm:space-y-7"></div>
       </div>
     </div>
