@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.AlgoLMS.model.course.Course;
+import com.project.AlgoLMS.model.courseResource.CourseResource;
 import com.project.AlgoLMS.model.enrollment.Enrollment;
 import com.project.AlgoLMS.model.user.User;
 import com.project.AlgoLMS.model.userProfile.UserProfile;
@@ -195,6 +195,56 @@ public String addCourse(@RequestParam("title") String title,
         courseRepository.changeAccessCodeByCourseId(accessCode, courseId);
         redirectAttributes.addFlashAttribute("success", "Pristupni kod uspješno promijenjen!");
 
+        return "redirect:/courses/" + courseId;
+    }
+
+    @PostMapping("/{courseId}/addResources")
+    public String addResources(@PathVariable("courseId") Long courseId,
+                               @RequestParam("files") MultipartFile[] files,
+                               @RequestParam("fileTitles") String[] fileTitles,
+                            //    @RequestParam("links") String[] links,
+                            //    @RequestParam("linkTitles") String[] linkTitles,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+                String title = fileTitles[i];
+                if (!file.isEmpty()) {
+                    String fileUrl = fileUploadService.uploadFile(file);
+    
+                    CourseResource courseResourceFile = new CourseResource();
+                    courseResourceFile.setCourseId(courseId);
+                    courseResourceFile.setTitle(title);
+                    courseResourceFile.setType("pdf");
+                    courseResourceFile.setLink(fileUrl);
+                    courseRepository.saveCourseResources(courseResourceFile);
+                }
+            }
+
+            // if (links != null) {
+            //     for (int i = 0; i < links.length; i++) {
+            //         String link = links[i];
+            //         String title = linkTitles[i];
+    
+            //         if (!link.isEmpty()) {
+            //             CourseResource courseResourceLink = new CourseResource();
+            //             courseResourceLink.setCourseId(courseId);
+            //             courseResourceLink.setTitle(title);
+            //             courseResourceLink.setType("link");
+            //             courseResourceLink.setLink(link);
+            //             courseRepository.saveCourseResources(courseResourceLink);
+            //         }
+            //     }
+            // }
+    
+            redirectAttributes.addFlashAttribute("success", "Dodatni resursi uspješno dodani!");
+
+        } catch (IOException e) {
+
+            redirectAttributes.addFlashAttribute("error", "Došlo je do pogreške pri uploadu resursa.");
+            return "redirect:/courses/" + courseId;
+        }
+    
         return "redirect:/courses/" + courseId;
     }
 

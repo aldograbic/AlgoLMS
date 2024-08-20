@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.AlgoLMS.model.course.Course;
 import com.project.AlgoLMS.model.course.CourseRowMapper;
+import com.project.AlgoLMS.model.courseResource.CourseResource;
 import com.project.AlgoLMS.repository.user.UserRepository;
 
 import java.util.List;
@@ -71,7 +72,13 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public void changeAccessCodeByCourseId(String accessCode, Long courseId) {
-        String sql="UPDATE courses SET access_code = ? WHERE course_id = ?";
+        String sql = "UPDATE courses SET access_code = ? WHERE course_id = ?";
         jdbcTemplate.update(sql, accessCode, courseId);
+    }
+
+    @Override
+    public void saveCourseResources(CourseResource courseResource) {
+        String sql = "INSERT INTO course_resources (course_id, title, type, link) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, courseResource.getCourseId(), courseResource.getTitle(), courseResource.getType(), courseResource.getLink());
     }
 }

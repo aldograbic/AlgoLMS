@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findByEmail(String email) {
-        String sql = "SELECT user_id, email, full_name, password, role, created_at, confirmation_token, email_verified FROM users WHERE email = ?";
+        String sql = "SELECT user_id, email, full_name, password, gender, phone, role, created_at, confirmation_token, email_verified FROM users WHERE email = ?";
         List<User> users = jdbcTemplate.query(sql, new UserRowMapper(), email);
         return users.isEmpty() ? null : users.get(0);
     }
@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findByConfirmationToken(String token) {
-        String sql = "SELECT user_id, email, full_name, password, role, created_at, confirmation_token, email_verified FROM users WHERE confirmation_token = ?";
+        String sql = "SELECT user_id, email, full_name, password, gender, phone, role, created_at, confirmation_token, email_verified FROM users WHERE confirmation_token = ?";
         List<User> users = jdbcTemplate.query(sql, new UserRowMapper(), token);
         return users.isEmpty() ? null : users.get(0);
     }
@@ -46,6 +46,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void update(User user) {
+        String sql = "UPDATE users SET full_name = ?, password = ?, phone = ?, gender = ?";
+        jdbcTemplate.update(sql, user.getFullName(), user.getPassword(), user.getPhone(), user.getGender());
+    }
+
+    @Override
+    public void updateVerification(User user) {
         String sql = "UPDATE users SET email_verified = ?";
         jdbcTemplate.update(sql, user.isEmailVerified());
     }
@@ -63,8 +69,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void updateUserProfileDetails(UserProfile userProfile) {
+        String sql = "UPDATE user_profiles SET profile_picture = ?, bio = ?";
+        jdbcTemplate.update(sql, userProfile.getProfilePicture(), userProfile.getBio());
+    }
+
+    @Override
     public User findById(Long userId) {
-        String sql = "SELECT user_id, email, full_name, password, role, created_at, confirmation_token, email_verified FROM users WHERE user_id = ?";
+        String sql = "SELECT user_id, email, full_name, password, gender, phone, role, created_at, confirmation_token, email_verified FROM users WHERE user_id = ?";
         List<User> users = jdbcTemplate.query(sql, new UserRowMapper(), userId);
         return users.isEmpty() ? null : users.get(0);
     }

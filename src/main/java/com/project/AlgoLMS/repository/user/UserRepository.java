@@ -10,8 +10,10 @@ public interface UserRepository {
     User findByConfirmationToken(String token);
     void save(User user);
     void update(User user);
+    void updateVerification(User user);
     void saveFull(User user);
     void saveUserProfileDetails(UserProfile userProfile);
+    void updateUserProfileDetails(UserProfile userProfile);
     User findById(Long userId);
     UserProfile getUserProfileByUserId(Long userId);
 }

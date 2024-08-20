@@ -3,6 +3,8 @@ CREATE TABLE users (
     password VARCHAR(255) DEFAULT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     full_name VARCHAR(100) DEFAULT NULL,
+    gender VARCHAR(25) DEFAULT NULL,
+    phone VARCHAR(25) DEFAULT NULL,
     role ENUM('ROLE_ADMIN', 'ROLE_INSTRUCTOR', 'ROLE_STUDENT') DEFAULT 'ROLE_STUDENT' NOT NULL,
     email_verified boolean DEFAULT false,
 	confirmation_token varchar(255) DEFAULT NULL,

@@ -34,7 +34,7 @@ public class RegistrationController {
             model.addAttribute("token", token);
             return "setup";
         } else {
-            model.addAttribute("message", "Nevažeći token, molimo kontaktirajte podršku.");
+            model.addAttribute("error", "Nevažeći token, molimo kontaktirajte podršku.");
             return "login";
         }
     }
@@ -61,10 +61,10 @@ public class RegistrationController {
             userProfile.setProfilePicture(profilePicture);
             userRepository.saveUserProfileDetails(userProfile);
 
-            model.addAttribute("successMessage", "Registracija završena! Sada se možete prijaviti.");
+            model.addAttribute("success", "Registracija završena! Sada se možete prijaviti.");
             return "login";
         } else {
-            model.addAttribute("message", "Nevažeći token, molimo kontaktirajte podršku.");
+            model.addAttribute("error", "Nevažeći token, molimo kontaktirajte podršku.");
             return "login";
         }
     }
@@ -73,7 +73,7 @@ public class RegistrationController {
     public String registerUser(@RequestParam("email") String email, Model model) {
         
         if (userRepository.existsByEmail(email)) {
-            model.addAttribute("successMessage", "Račun s ovom e-mail adresom je već registriran.");
+            model.addAttribute("info", "Račun s ovom e-mail adresom je već registriran.");
             return "login";
 
         } else {
@@ -86,7 +86,7 @@ public class RegistrationController {
 
             String confirmationLink = "http://localhost:8080/confirm?token=" + confirmationToken;
             emailService.sendConfirmationEmail(email, confirmationLink);
-            model.addAttribute("message", "Registracija uspješna! Provjerite svoju e-poštu za potvrdu.");
+            model.addAttribute("success", "Registracija uspješna! Provjerite svoju e-poštu za potvrdu.");
         }
         return "login";
     }
@@ -97,11 +97,11 @@ public class RegistrationController {
 
         if (user != null) {
             user.setEmailVerified(true);
-            userRepository.update(user);
-            model.addAttribute("message", "Vaš račun je uspješno potvrđen!");
+            userRepository.updateVerification(user);
+            model.addAttribute("success", "Vaš račun je uspješno potvrđen!");
             return "setup";
         } else {
-            model.addAttribute("message", "Nevažeći link za potvrdu, molimo kontaktirajte podršku.");
+            model.addAttribute("error", "Nevažeći link za potvrdu, molimo kontaktirajte podršku.");
             return "login";
         }
     }
