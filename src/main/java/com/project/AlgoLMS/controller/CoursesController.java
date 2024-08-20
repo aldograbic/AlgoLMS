@@ -70,7 +70,7 @@ public class CoursesController {
 public String addCourse(@RequestParam("title") String title,
                         @RequestParam("description") String description,
                         @RequestParam(value = "coverPhoto", required = false) MultipartFile coverPhoto,
-                        @RequestParam(value = "accessType", defaultValue = "public") String accessType,
+                        @RequestParam(value = "accessType") String accessType,
                         @RequestParam(value = "accessCode", required = false) String accessCode,
                         @RequestParam("instructorId") Long instructorId,
                         RedirectAttributes redirectAttributes) {

@@ -109,6 +109,54 @@ CREATE TABLE submissions (
     FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE exams (
+    exam_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    exam_date DATE,
+    duration INT,  -- Trajanje u minutama
+    max_score DECIMAL(5, 2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+CREATE TABLE exam_questions (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    exam_id INT,
+    question_text TEXT NOT NULL,
+    question_type ENUM('multiple_choice', 'true_false', 'short_answer') NOT NULL,
+    max_points DECIMAL(5, 2),
+    FOREIGN KEY (exam_id) REFERENCES exams(exam_id)
+);
+
+CREATE TABLE exam_options (
+    option_id INT AUTO_INCREMENT PRIMARY KEY,
+    question_id INT,
+    option_text TEXT NOT NULL,
+    is_correct BOOLEAN NOT NULL,
+    FOREIGN KEY (question_id) REFERENCES exam_questions(question_id)
+);
+
+CREATE TABLE exam_results (
+    result_id INT AUTO_INCREMENT PRIMARY KEY,
+    exam_id INT,
+    student_id INT,
+    score DECIMAL(5, 2),
+    graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (exam_id) REFERENCES exams(exam_id),
+    FOREIGN KEY (student_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE course_resources (
+    resource_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT,
+    title VARCHAR(255) NOT NULL,
+    type ENUM('pdf', 'link', 'book', 'article') NOT NULL,
+    link VARCHAR(255) NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
 CREATE TABLE progress (
     progress_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT,

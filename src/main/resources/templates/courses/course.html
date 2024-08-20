@@ -67,32 +67,123 @@
         <div class="p-4 sm:p-7 space-y-4 sm:space-y-7">
           <div class="md:flex justify-between">
             <h1 th:text="${course.title}" class="text-3xl"></h1>
-            <button
-              sec:authorize="hasAnyRole('ADMIN', 'INSTRUCTOR')"
-              type="submit"
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="hs-bg-gray-on-hover-cards"
-              data-hs-overlay="#hs-bg-gray-on-hover-cards"
-              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-plus size-4"
+
+            <div class="hs-dropdown relative inline-flex">
+              <button
+                id="hs-dropdown-with-icons"
+                type="button"
+                class="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="Dropdown"
+                sec:authorize="hasAnyRole('ADMIN', 'INSTRUCTOR')"
               >
-                <path d="M5 12h14" />
-                <path d="M12 5v14" />
-              </svg>
-              Dodaj modul
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-plus size-4"
+                >
+                  <path d="M5 12h14" />
+                  <path d="M12 5v14" />
+                </svg>
+                Dodaj
+              </button>
+
+              <div
+                class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-1 space-y-0.5 mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="hs-dropdown-with-icons"
+              >
+                <div class="py-2 first:pt-0 last:pb-0">
+                  <a
+                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                    href="#"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="hs-bg-gray-on-hover-cards"
+                    data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-puzzle shrink-0 size-4"
+                    >
+                      <path
+                        d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"
+                      />
+                    </svg>
+                    Novi modul
+                  </a>
+                  <a
+                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                    href="#"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-book-open-check size-4 shrink-0"
+                    >
+                      <path
+                        d="M8 3H2v15h7c1.7 0 3 1.3 3 3V7c0-2.2-1.8-4-4-4Z"
+                      />
+                      <path d="m16 12 2 2 4-4" />
+                      <path
+                        d="M22 6V3h-6c-2.2 0-4 1.8-4 4v14c0-1.7 1.3-3 3-3h7v-2.3"
+                      />
+                    </svg>
+                    Novu provjeru znanja
+                  </a>
+                  <a
+                    class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                    href="#"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="hs-bg-gray-on-hover-cards-2"
+                    data-hs-overlay="#hs-bg-gray-on-hover-cards-2"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-folder-open shrink-0 size-4"
+                    >
+                      <path
+                        d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+                      />
+                    </svg>
+                    Nove dodatne resurse
+                  </a>
+                </div>
+              </div>
+            </div>
 
             <div
               id="hs-bg-gray-on-hover-cards"
@@ -474,12 +565,6 @@
                           <p class="mt-3 text-end">
                             <button
                               type="button"
-                              data-hs-copy-markup='{
-                                "targetSelector": "#hs-content-for-copy",
-                                "wrapperSelector": "#hs-wrapper-for-copy",
-                                "limit": 20
-                              }'
-                              id="hs-copy-content"
                               class="py-1.5 px-2 inline-flex items-center gap-x-1 text-xs font-medium rounded-full border border-dashed border-gray-200 bg-white text-gray-800 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                             >
                               <svg
@@ -513,6 +598,290 @@
                       class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                     >
                       Dodaj modul
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="hs-bg-gray-on-hover-cards-2"
+              class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
+              role="dialog"
+              tabindex="-1"
+              aria-labelledby="hs-bg-gray-on-hover-cards-label-2"
+            >
+              <div
+                class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
+              >
+                <div
+                  class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70"
+                >
+                  <div
+                    class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-800"
+                  >
+                    <h3
+                      id="hs-bg-gray-on-hover-cards-label-2"
+                      class="font-bold text-gray-800 dark:text-neutral-200"
+                    >
+                      Dodaj nove dodatne resurse
+                    </h3>
+                    <button
+                      type="button"
+                      class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
+                      aria-label="Close"
+                      data-hs-overlay="#hs-bg-gray-on-hover-cards-2"
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="shrink-0 size-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="p-4 overflow-y-auto">
+                    <div
+                      class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
+                    >
+                      <div class="pb-3 sm:pb-6">
+                        <!-- Grid -->
+                        <div class="grid gap-2">
+                          <div
+                            id="hs-file-upload"
+                            data-hs-file-upload='{
+                            "url": "/upload",
+                            "extensions": {
+                              "default": {
+                                "class": "shrink-0 size-5"
+                              },
+                              "xls": {
+                                "class": "shrink-0 size-5"
+                              },
+                              "zip": {
+                                "class": "shrink-0 size-5"
+                              },
+                              "csv": {
+                                "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
+                                "class": "shrink-0 size-5"
+                              }
+                            }
+                          }'
+                          >
+                            <template data-hs-file-upload-preview="">
+                              <div
+                                class="p-3 bg-white border border-solid border-gray-300 rounded-xl dark:bg-neutral-800 dark:border-neutral-600"
+                              >
+                                <div
+                                  class="mb-2 flex justify-between items-center"
+                                >
+                                  <div class="flex items-center gap-x-3">
+                                    <span
+                                      class="size-8 flex justify-center items-center border border-gray-200 text-gray-500 rounded-lg dark:border-neutral-700 dark:text-neutral-500"
+                                      data-hs-file-upload-file-icon=""
+                                    >
+                                      <img
+                                        class="rounded-lg hidden"
+                                        data-dz-thumbnail=""
+                                      />
+                                    </span>
+                                    <div>
+                                      <p
+                                        class="text-sm font-medium text-gray-800 dark:text-white"
+                                      >
+                                        <input
+                                          type="text"
+                                          class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                          data-hs-file-upload-file-name=""
+                                          value=""
+                                          required
+                                        />
+                                      </p>
+                                      <p
+                                        class="text-xs text-gray-500 dark:text-neutral-500"
+                                        data-hs-file-upload-file-size=""
+                                      ></p>
+                                    </div>
+                                  </div>
+                                  <div class="inline-flex items-center gap-x-2">
+                                    <button
+                                      type="button"
+                                      class="text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-500 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                                      data-hs-file-upload-remove=""
+                                    >
+                                      <svg
+                                        class="shrink-0 size-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M3 6h18"></path>
+                                        <path
+                                          d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
+                                        ></path>
+                                        <path
+                                          d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
+                                        ></path>
+                                        <line
+                                          x1="10"
+                                          x2="10"
+                                          y1="11"
+                                          y2="17"
+                                        ></line>
+                                        <line
+                                          x1="14"
+                                          x2="14"
+                                          y1="11"
+                                          y2="17"
+                                        ></line>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <div
+                                  class="flex items-center gap-x-3 whitespace-nowrap"
+                                >
+                                  <div
+                                    class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
+                                    role="progressbar"
+                                    aria-valuenow="0"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    data-hs-file-upload-progress-bar=""
+                                  >
+                                    <div
+                                      class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition-all duration-500 hs-file-upload-complete:bg-green-600 dark:bg-blue-500"
+                                      style="width: 0"
+                                      data-hs-file-upload-progress-bar-pane=""
+                                    ></div>
+                                  </div>
+                                  <div class="w-10 text-end">
+                                    <span
+                                      class="text-sm text-gray-800 dark:text-white"
+                                    >
+                                      <span
+                                        data-hs-file-upload-progress-bar-value=""
+                                        >0</span
+                                      >%
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+
+                            <div
+                              class="cursor-pointer p-12 flex justify-center bg-white border border-dashed border-gray-300 rounded-xl dark:bg-neutral-800 dark:border-neutral-600"
+                              data-hs-file-upload-trigger=""
+                            >
+                              <div class="text-center">
+                                <svg
+                                  class="w-16 text-gray-400 mx-auto dark:text-neutral-400"
+                                  width="70"
+                                  height="46"
+                                  viewBox="0 0 70 46"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M6.05172 9.36853L17.2131 7.5083V41.3608L12.3018 42.3947C9.01306 43.0871 5.79705 40.9434 5.17081 37.6414L1.14319 16.4049C0.515988 13.0978 2.73148 9.92191 6.05172 9.36853Z"
+                                    fill="currentColor"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    class="fill-white stroke-gray-400 dark:fill-neutral-800 dark:stroke-neutral-500"
+                                  ></path>
+                                  <path
+                                    d="M63.9483 9.36853L52.7869 7.5083V41.3608L57.6982 42.3947C60.9869 43.0871 64.203 40.9434 64.8292 37.6414L68.8568 16.4049C69.484 13.0978 67.2685 9.92191 63.9483 9.36853Z"
+                                    fill="currentColor"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    class="fill-white stroke-gray-400 dark:fill-neutral-800 dark:stroke-neutral-500"
+                                  ></path>
+                                  <rect
+                                    x="17.0656"
+                                    y="1.62305"
+                                    width="35.8689"
+                                    height="42.7541"
+                                    rx="5"
+                                    fill="currentColor"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    class="fill-white stroke-gray-400 dark:fill-neutral-800 dark:stroke-neutral-500"
+                                  ></rect>
+                                  <path
+                                    d="M47.9344 44.3772H22.0655C19.3041 44.3772 17.0656 42.1386 17.0656 39.3772L17.0656 35.9161L29.4724 22.7682L38.9825 33.7121C39.7832 34.6335 41.2154 34.629 42.0102 33.7025L47.2456 27.5996L52.9344 33.7209V39.3772C52.9344 42.1386 50.6958 44.3772 47.9344 44.3772Z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    class="stroke-gray-400 dark:stroke-neutral-500"
+                                  ></path>
+                                  <circle
+                                    cx="39.5902"
+                                    cy="14.9672"
+                                    r="4.16393"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    class="stroke-gray-400 dark:stroke-neutral-500"
+                                  ></circle>
+                                </svg>
+
+                                <div
+                                  class="mt-4 flex flex-wrap justify-center text-sm leading-6 text-gray-600"
+                                >
+                                  <span
+                                    class="pe-1 font-medium text-gray-800 dark:text-neutral-200"
+                                  >
+                                    Drop your file here or
+                                  </span>
+                                  <span
+                                    class="bg-white font-semibold text-blue-600 hover:text-blue-700 rounded-lg decoration-2 hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 dark:bg-neutral-800 dark:text-blue-500 dark:hover:text-blue-600"
+                                    >browse</span
+                                  >
+                                </div>
+
+                                <p
+                                  class="mt-1 text-xs text-gray-400 dark:text-neutral-400"
+                                >
+                                  Pick a photo up to 2MB.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div
+                              class="mt-4 space-y-3 empty:mt-0"
+                              data-hs-file-upload-previews=""
+                            ></div>
+                          </div>
+                        </div>
+                        <!-- End Grid -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-800"
+                  >
+                    <button
+                      type="submit"
+                      class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    >
+                      Dodaj dodatne resurse
                     </button>
                   </div>
                 </div>
