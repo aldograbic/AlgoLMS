@@ -23,7 +23,7 @@
           have to be like that!”<br /><span class="text-sm">Cammy Bean</span>
         </p>
       </div>
-      <div class="flex-1 p-10">
+      <div class="flex-1 p-10 dark:bg-neutral-800 dark:text-neutral-200">
         <div class="flex justify-end">
           <a
             href="/"
@@ -179,6 +179,68 @@
                     ></circle>
                   </svg>
                 </button>
+              </div>
+              <input
+                type="text"
+                name="phone"
+                id="phone"
+                class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                placeholder="Vaš broj telefona (opcionalno)"
+                autocomplete="mobile"
+              />
+              <div class="sm:col-span-9 mt-6 mb-2">
+                <div class="sm:flex">
+                  <label
+                    for="af-account-gender-checkbox"
+                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                      id="af-account-gender-checkbox"
+                      value="male"
+                    />
+                    <span
+                      class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
+                      >Muško</span
+                    >
+                  </label>
+
+                  <label
+                    for="af-account-gender-checkbox-female"
+                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                      id="af-account-gender-checkbox-female"
+                      value="female"
+                    />
+                    <span
+                      class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
+                      >Žensko</span
+                    >
+                  </label>
+
+                  <label
+                    for="af-account-gender-checkbox-other"
+                    class="flex py-2 px-3 w-full border border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                      id="af-account-gender-checkbox-other"
+                      value="other"
+                    />
+                    <span
+                      class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
+                      >Ostalo</span
+                    >
+                  </label>
+                </div>
               </div>
               <textarea
                 id="bio"

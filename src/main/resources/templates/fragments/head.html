@@ -14,5 +14,25 @@
   />
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/preline@2.4.1/dist/preline.min.js"></script>
+  <script>
+    const html = document.querySelector("html");
+    const isLightOrAuto =
+      localStorage.getItem("hs_theme") === "light" ||
+      (localStorage.getItem("hs_theme") === "auto" &&
+        !window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDarkOrAuto =
+      localStorage.getItem("hs_theme") === "dark" ||
+      (localStorage.getItem("hs_theme") === "auto" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    if (isLightOrAuto && html.classList.contains("dark"))
+      html.classList.remove("dark");
+    else if (isDarkOrAuto && html.classList.contains("light"))
+      html.classList.remove("light");
+    else if (isDarkOrAuto && !html.classList.contains("dark"))
+      html.classList.add("dark");
+    else if (isLightOrAuto && !html.classList.contains("light"))
+      html.classList.add("light");
+  </script>
   <title th:text="${title}">AlgoLMS</title>
 </head>

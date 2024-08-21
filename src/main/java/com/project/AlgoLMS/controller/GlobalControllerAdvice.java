@@ -10,6 +10,8 @@ import com.project.AlgoLMS.model.user.User;
 import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.user.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -20,7 +22,7 @@ public class GlobalControllerAdvice {
     }
 
     @ModelAttribute
-    public void addGlobalAttributes(Model model) {
+    public void addGlobalAttributes(Model model, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -35,5 +37,8 @@ public class GlobalControllerAdvice {
                 model.addAttribute("user", user);
             }
         }
+
+        String currentUri = request.getRequestURI();
+        model.addAttribute("currentUri", currentUri);
     }
 }

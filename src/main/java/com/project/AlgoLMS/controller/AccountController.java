@@ -104,4 +104,9 @@ public class AccountController {
 
         return "redirect:/account";
     }
+
+    @GetMapping("/settings")
+    public String getAccountSettingsPage() {
+        return "settings";
+    }
 }

@@ -36,8 +36,7 @@ public class SecurityConfig {
                 .requestMatchers("/", "/login", "/register", "/confirm", "/setup", "/privacy-policy", "/terms-and-conditions").permitAll()
                 // .requestMatchers("/user-dashboard").hasRole("USER")
                 // .requestMatchers("/admin-dashboard").hasRole("ADMIN")
-                .requestMatchers("/courses/add").hasAnyRole("ADMIN", "INSTRUCTOR")
-                // .requestMatchers("/properties", "/tenants").hasAnyRole("OWNER", "AGENT")
+                .requestMatchers("/courses/add", "/courses/{courseId}/changeAccessCode", "/courses/{courseId}/addResources", "/assigments/add").hasAnyRole("ADMIN", "INSTRUCTOR")
                 .anyRequest().authenticated()
             )
             .formLogin((formLogin) -> formLogin

@@ -67,52 +67,51 @@ public class CoursesController {
     }
 
     @PostMapping("/add")
-public String addCourse(@RequestParam("title") String title,
-                        @RequestParam("description") String description,
-                        @RequestParam(value = "coverPhoto", required = false) MultipartFile coverPhoto,
-                        @RequestParam(value = "accessType") String accessType,
-                        @RequestParam(value = "accessCode", required = false) String accessCode,
-                        @RequestParam("instructorId") Long instructorId,
-                        RedirectAttributes redirectAttributes) {
-    try {
-        // Handle cover photo upload
-        String coverPhotoUrl = null;
-        if (coverPhoto != null && !coverPhoto.isEmpty()) {
-            coverPhotoUrl = fileUploadService.uploadFile(coverPhoto);
-        }
-
-        // Process access type and code
-        if ("on".equals(accessType)) {
-            accessCode = null;
-            accessType = "private";
-        } else {
-            accessType = "public";
-
-            if (accessCode == null || accessCode.isEmpty()) {
-                redirectAttributes.addFlashAttribute("error", "Za privatne tečajeve potreban je pristupni kod.");
-                return "redirect:/courses/add";
+    public String addCourse(@RequestParam("title") String title,
+                            @RequestParam("description") String description,
+                            @RequestParam(value = "coverPhoto", required = false) MultipartFile coverPhoto,
+                            @RequestParam(value = "accessType") String accessType,
+                            @RequestParam(value = "accessCode", required = false) String accessCode,
+                            @RequestParam("instructorId") Long instructorId,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            // Handle cover photo upload
+            String coverPhotoUrl = null;
+            if (coverPhoto != null && !coverPhoto.isEmpty()) {
+                coverPhotoUrl = fileUploadService.uploadFile(coverPhoto);
             }
+
+            // Process access type and code
+            if ("on".equals(accessType)) {
+                accessCode = null;
+                accessType = "private";
+            } else {
+                accessType = "public";
+
+                if (accessCode == null || accessCode.isEmpty()) {
+                    redirectAttributes.addFlashAttribute("error", "Za privatne tečajeve potreban je pristupni kod.");
+                    return "redirect:/courses/add";
+                }
+            }
+
+            Course course = new Course();
+            course.setTitle(title);
+            course.setDescription(description);
+            course.setCoverPhoto(coverPhotoUrl);
+            course.setAccessType(accessType);
+            course.setAccessCode(accessCode);
+            course.setInstructorId(instructorId);
+
+            courseRepository.save(course);
+            redirectAttributes.addFlashAttribute("message", "Tečaj uspješno dodan!");
+
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("error", "Došlo je do pogreške pri uploadu fotografije.");
+            return "redirect:/courses/add";
         }
 
-        Course course = new Course();
-        course.setTitle(title);
-        course.setDescription(description);
-        course.setCoverPhoto(coverPhotoUrl);
-        course.setAccessType(accessType);
-        course.setAccessCode(accessCode);
-        course.setInstructorId(instructorId);
-
-        courseRepository.save(course);
-        redirectAttributes.addFlashAttribute("message", "Tečaj uspješno dodan!");
-
-    } catch (IOException e) {
-        redirectAttributes.addFlashAttribute("error", "Došlo je do pogreške pri uploadu fotografije.");
-        return "redirect:/courses/add";
+        return "redirect:/courses";
     }
-
-    return "redirect:/courses";
-}
-
 
     @PostMapping("/enroll")
     public String enrollInCourse(@RequestParam("courseId") Long courseId, RedirectAttributes redirectAttributes) {
