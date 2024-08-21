@@ -28,7 +28,8 @@
         <ul class="flex flex-col space-y-1">
           <li>
             <a
-              class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-700"
+              th:classappend="${currentUri == '/dashboard'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+              class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-white dark:hover:bg-neutral-700"
               href="/dashboard"
             >
               <svg
@@ -53,10 +54,12 @@
           <li class="hs-accordion" id="courses-accordion">
             <button
               type="button"
-              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200"
-              aria-expanded="true"
+              th:attrappend="aria-expanded=${currentUri.startsWith('/courses')} ? 'true' : 'false'"
+              th:classappend="${currentUri.startsWith('/courses')} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:text-neutral-200"
               aria-controls="courses-accordion-child"
             >
+              <!-- SVG icons -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -77,6 +80,7 @@
               </svg>
               Tečajevi
 
+              <!-- Accordion state SVG icons -->
               <svg
                 class="hs-accordion-active:block ms-auto hidden size-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,14 +114,16 @@
 
             <div
               id="courses-accordion-child"
-              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              th:classappend="${currentUri.startsWith('/courses')} ? 'block' : 'hidden'"
+              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               role="region"
               aria-labelledby="courses-accordion"
             >
               <ul class="ps-8 pt-1 space-y-1">
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/courses/my'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/courses/my"
                   >
                     Moji tečajevi
@@ -125,7 +131,8 @@
                 </li>
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/courses'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/courses"
                   >
                     Istražite tečajeve
@@ -133,7 +140,8 @@
                 </li>
                 <li sec:authorize="hasAnyRole('ADMIN', 'INSTRUCTOR')">
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/courses/add'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/courses/add"
                   >
                     Novi tečaj
@@ -146,10 +154,12 @@
           <li class="hs-accordion" id="tasks-accordion">
             <button
               type="button"
-              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200"
-              aria-expanded="true"
+              th:classappend="${currentUri.startsWith('/assigments')} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+              th:attrappend="aria-expanded=${currentUri.startsWith('/assigments')} ? 'true' : 'false'"
+              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:text-neutral-200"
               aria-controls="tasks-accordion-child"
             >
+              <!-- SVG icons -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -170,6 +180,7 @@
               </svg>
               Zadaci
 
+              <!-- Accordion state SVG icons -->
               <svg
                 class="hs-accordion-active:block ms-auto hidden size-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -203,14 +214,16 @@
 
             <div
               id="tasks-accordion-child"
-              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              th:classappend="${currentUri.startsWith('/assigments')} ? 'block' : 'hidden'"
+              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               role="region"
               aria-labelledby="tasks-accordion"
             >
               <ul class="ps-8 pt-1 space-y-1">
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/assigments/my'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/assigments/my"
                   >
                     Moji zadaci
@@ -218,7 +231,8 @@
                 </li>
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/assigments/grades'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/assigments/grades"
                   >
                     Pregled ocjena
@@ -226,7 +240,8 @@
                 </li>
                 <li sec:authorize="hasAnyRole('ADMIN', 'INSTRUCTOR')">
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    th:classappend="${currentUri == '/assigments/add'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-700"
                     href="/assigments/add"
                   >
                     Novi zadatak
@@ -239,10 +254,12 @@
           <li class="hs-accordion" id="grades-accordion">
             <button
               type="button"
-              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200"
-              aria-expanded="true"
+              th:classappend="${currentUri.startsWith('/grades')} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+              th:attrappend="aria-expanded=${currentUri.startsWith('/grades')} ? 'true' : 'false'"
+              class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:text-neutral-200"
               aria-controls="grades-accordion-child"
             >
+              <!-- SVG icons -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -262,6 +279,7 @@
               </svg>
               Ocjene
 
+              <!-- Accordion state SVG icons -->
               <svg
                 class="hs-accordion-active:block ms-auto hidden size-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -295,14 +313,16 @@
 
             <div
               id="grades-accordion-child"
-              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+              th:classappend="${currentUri.startsWith('/grades')} ? 'block' : 'hidden'"
+              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               role="region"
               aria-labelledby="grades-accordion"
             >
               <ul class="ps-8 pt-1 space-y-1">
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                    th:classappend="${currentUri == '/grades/my'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:text-neutral-200"
                     href="#"
                   >
                     Moje ocjene
@@ -310,7 +330,8 @@
                 </li>
                 <li>
                   <a
-                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                    th:classappend="${currentUri == '/grades/reports'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
+                    class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:focus:bg-neutral-700 dark:hover:bg-neutral-700 dark:text-neutral-200"
                     href="#"
                   >
                     Izvještaji o napretku
@@ -322,8 +343,9 @@
 
           <li>
             <a
+              th:classappend="${currentUri == '/calendar'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
               class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-300"
-              href="#"
+              href="/calendar"
             >
               <svg
                 class="shrink-0 size-4 mb-0.5"
@@ -353,8 +375,9 @@
           </li>
           <li>
             <a
+              th:classappend="${currentUri == '/resources'} ? 'dark:bg-neutral-700' : 'dark:bg-neutral-800'"
               class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-700 focus:bg-gray-100 dark:focus:bg-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-300"
-              href="#"
+              href="/resources"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

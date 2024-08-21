@@ -1091,6 +1091,11 @@ button {
   height: 2.5rem;
 }
 
+.size-12 {
+  width: 3rem;
+  height: 3rem;
+}
+
 .size-16 {
   width: 4rem;
   height: 4rem;
@@ -1166,6 +1171,10 @@ button {
 
 .h-2\/3 {
   height: 66.666667%;
+}
+
+.h-36 {
+  height: 9rem;
 }
 
 .h-4 {
@@ -1320,10 +1329,6 @@ button {
   flex-basis: 100%;
 }
 
-.origin-bottom-left {
-  transform-origin: bottom left;
-}
-
 .-translate-x-full {
   --tw-translate-x: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1376,10 +1381,6 @@ button {
 
 .resize {
   resize: both;
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -2175,12 +2176,6 @@ button {
   transition-duration: 150ms;
 }
 
-.transition-\[margin\2c opacity\] {
-  transition-property: margin,opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition-\[opacity\2c margin\] {
   transition-property: opacity,margin;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2798,14 +2793,6 @@ button {
 
 .selected.hs-combo-box-selected\:block {
   display: block;
-}
-
-.dark .hs-dark-mode-active\:block {
-  display: block;
-}
-
-.dark .hs-dark-mode-active\:hidden {
-  display: none;
 }
 
 .dark\:divide-neutral-700:is(.dark *) > :not([hidden]) ~ :not([hidden]) {
