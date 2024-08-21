@@ -193,7 +193,7 @@
             <img
               th:if="${userProfile.profilePicture}"
               class="shrink-0 size-[38px] rounded-full"
-              th:src="@{userProfile.profilePicture}"
+              th:src="${userProfile.profilePicture}"
               alt="Avatar"
             />
             <div
@@ -216,7 +216,7 @@
                 <img
                   th:if="${userProfile.profilePicture}"
                   class="shrink-0 size-[38px] rounded-full"
-                  th:src="@{userProfile.profilePicture}"
+                  th:src="${userProfile.profilePicture}"
                   alt="Avatar"
                 />
                 <div

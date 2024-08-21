@@ -13,6 +13,15 @@
       ></th:block>
       <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block>
       <div class="w-full lg:ps-64">
+        <th:block
+          th:insert="~{fragments/successMessage :: successMessage}"
+        ></th:block>
+        <th:block
+          th:insert="~{fragments/errorMessage :: errorMessage}"
+        ></th:block>
+        <th:block
+          th:insert="~{fragments/infoMessage :: infoMessage}"
+        ></th:block>
         <div class="p-4 sm:p-7 space-y-4 sm:space-y-7">
           <div
             class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-neutral-800"
@@ -42,22 +51,41 @@
                 </div>
                 <!-- End Col -->
 
-                <div class="sm:col-span-9">
+                <div class="sm:col-span-9" x-data="{ imagePreview: null }">
                   <div class="flex items-center gap-5">
-                    <img
+                    <template x-if="imagePreview">
+                      <img
+                        class="shrink-0 size-16 rounded-full"
+                        :src="imagePreview"
+                        alt="Avatar Preview"
+                      />
+                    </template>
+
+                    <template
+                      x-if="!imagePreview"
                       th:if="${userProfile.profilePicture}"
-                      class="shrink-0 size-16 rounded-full"
-                      th:src="@{userProfile.profilePicture}"
-                      alt="Avatar"
-                    />
-                    <div
+                    >
+                      <img
+                        class="shrink-0 size-16 rounded-full"
+                        th:src="${userProfile.profilePicture}"
+                        alt="Avatar"
+                      />
+                    </template>
+
+                    <template
+                      x-if="!imagePreview"
                       th:unless="${userProfile.profilePicture}"
-                      th:text="${#strings.substring(user.fullName,0,1)}"
-                      class="shrink-0 size-16 rounded-full grid place-items-center text-3xl text-gray-800 dark:text-neutral-200 bg-gray-100 dark:bg-neutral-700"
-                    ></div>
+                    >
+                      <div
+                        th:text="${#strings.substring(user.fullName, 0, 1)}"
+                        class="shrink-0 size-16 rounded-full grid place-items-center text-3xl text-gray-800 dark:text-neutral-200 bg-gray-100 dark:bg-neutral-700"
+                      ></div>
+                    </template>
+
                     <div class="flex gap-x-2">
                       <button
                         type="button"
+                        @click="$refs.fileInput.click()"
                         class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100 dark:bg-transparent dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                       >
                         <svg
@@ -80,7 +108,25 @@
                       </button>
                     </div>
                   </div>
+
+                  <input
+                    type="file"
+                    name="profilePicture"
+                    x-ref="fileInput"
+                    class="hidden"
+                    @change="
+                      const file = $refs.fileInput.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                          imagePreview = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    "
+                  />
                 </div>
+
                 <!-- End Col -->
 
                 <div class="sm:col-span-3">
@@ -226,7 +272,7 @@
                       <input
                         id="hs-toggle-password2"
                         type="password"
-                        name="confirmPassword"
+                        name="newPassword"
                         placeholder="Unesite novu lozinku"
                         class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       />
@@ -308,6 +354,7 @@
                       type="text"
                       class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       placeholder="+(xxx) xx xxx-xx-xx"
+                      th:value="${user.phone}"
                     />
                   </div>
                 </div>
@@ -335,7 +382,7 @@
                         class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         id="af-account-gender-checkbox"
                         value="male"
-                        checked
+                        th:checked="${user.gender == 'male'}"
                       />
                       <span
                         class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
@@ -353,6 +400,7 @@
                         class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         id="af-account-gender-checkbox-female"
                         value="female"
+                        th:checked="${user.gender == 'female'}"
                       />
                       <span
                         class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
@@ -370,6 +418,7 @@
                         class="shrink-0 mt-0.5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-500 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         id="af-account-gender-checkbox-other"
                         value="other"
+                        th:checked="${user.gender == 'other'}"
                       />
                       <span
                         class="text-sm text-gray-500 ms-3 dark:text-neutral-400"
