@@ -1,7 +1,10 @@
 package com.project.AlgoLMS.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +20,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.AlgoLMS.config.TimeAgoFormatter;
 import com.project.AlgoLMS.model.course.Course;
 import com.project.AlgoLMS.model.courseResource.CourseResource;
 import com.project.AlgoLMS.model.enrollment.Enrollment;
+import com.project.AlgoLMS.model.forum.Forum;
+import com.project.AlgoLMS.model.forum.ForumPost;
 import com.project.AlgoLMS.model.user.User;
 import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.course.CourseRepository;
 import com.project.AlgoLMS.repository.enrollment.EnrollmentRepository;
+import com.project.AlgoLMS.repository.forum.ForumRepository;
 import com.project.AlgoLMS.repository.user.UserRepository;
 import com.project.AlgoLMS.service.FileUploadService;
 
@@ -41,6 +49,9 @@ public class CoursesController {
 
     @Autowired
     private FileUploadService fileUploadService;
+
+    @Autowired
+    private ForumRepository forumRepository;
     
     @GetMapping
     public String getCoursesPage(Model model) {
@@ -75,24 +86,20 @@ public class CoursesController {
                             @RequestParam("instructorId") Long instructorId,
                             RedirectAttributes redirectAttributes) {
         try {
-            // Handle cover photo upload
             String coverPhotoUrl = null;
             if (coverPhoto != null && !coverPhoto.isEmpty()) {
                 coverPhotoUrl = fileUploadService.uploadFile(coverPhoto);
             }
 
-            // Process access type and code
-            if ("on".equals(accessType)) {
-                accessCode = null;
-                accessType = "private";
-            } else {
-                accessType = "public";
-
+            if ("private".equals(accessType)) {
                 if (accessCode == null || accessCode.isEmpty()) {
                     redirectAttributes.addFlashAttribute("error", "Za privatne tečajeve potreban je pristupni kod.");
                     return "redirect:/courses/add";
                 }
+            } else {
+                accessCode = null;
             }
+            
 
             Course course = new Course();
             course.setTitle(title);
@@ -103,6 +110,14 @@ public class CoursesController {
             course.setInstructorId(instructorId);
 
             courseRepository.save(course);
+
+            Forum forum = new Forum();
+            forum.setCourseId(course.getCourseId());
+            forum.setTitle("Forum za predmet: " + title);
+            forum.setDescription(null);
+        
+        forumRepository.save(forum);
+
             redirectAttributes.addFlashAttribute("message", "Tečaj uspješno dodan!");
 
         } catch (IOException e) {
@@ -262,5 +277,45 @@ public class CoursesController {
         model.addAttribute("courses", courses);
 
         return "courses/my-courses";
+    }
+
+    @GetMapping("/{courseId}/forum")
+    public String getCourseForumPage(@PathVariable("courseId") Long courseId, Model model) {
+
+        Forum forum = forumRepository.getForumByCourseId(courseId);
+        model.addAttribute("forum", forum);
+
+        Course course = courseRepository.findById(courseId);
+        model.addAttribute("course", course);
+        
+        List<ForumPost> forumPosts = forumRepository.getForumPostsByForumId(forum.getForumId());
+
+        TimeAgoFormatter formatter = new TimeAgoFormatter();
+        List<Map<String, Object>> formattedPosts = new ArrayList<>();
+        for (ForumPost post : forumPosts) {
+
+            UserProfile userProfile = userRepository.getUserProfileByUserId(post.getUserId());
+
+            Map<String, Object> postMap = new HashMap<>();
+            postMap.put("post", post);
+            postMap.put("formattedTime", formatter.formatTimeAgo(post.getCreatedAt()));
+            postMap.put("userProfile", userProfile);
+            formattedPosts.add(postMap);
+        }
+
+        model.addAttribute("forumPosts", formattedPosts);
+
+        return "courses/forum";
+    }
+
+    @PostMapping("/{courseId}/forum/createForumPost")
+    public String createForumPost(@PathVariable("courseId") Long courseId, @ModelAttribute("forumPost") ForumPost forumPost, Model model) {
+
+        Forum forum = forumRepository.getForumByCourseId(courseId);
+        model.addAttribute("forum", forum);
+        
+        forumRepository.createForumPost(forumPost);
+
+        return "courses/forum";
     }
 }

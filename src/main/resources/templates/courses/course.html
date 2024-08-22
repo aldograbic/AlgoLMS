@@ -1060,7 +1060,7 @@
                           Forum
                         </p>
                         <a
-                          href="#"
+                          th:href="${'/courses/' + course.courseId + '/forum'}"
                           class="font-medium text-gray-800 dark:text-neutral-200"
                           >Obavijesti</a
                         >
@@ -1083,7 +1083,7 @@
                         <img
                           th:if="${instructorProfile.profilePicture}"
                           class="shrink-0 size-[38px] rounded-full"
-                          th:src="@{instructorProfile.profilePicture}"
+                          th:src="${instructorProfile.profilePicture}"
                           alt="Avatar"
                         />
                         <div

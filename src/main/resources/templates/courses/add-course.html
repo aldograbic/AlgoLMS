@@ -130,6 +130,11 @@
                         Privatno
                       </label>
                       <input
+                        type="hidden"
+                        name="accessType"
+                        x-bind:value="!isChecked ? 'private' : 'public'"
+                      />
+                      <input
                         type="checkbox"
                         id="accessType"
                         name="accessType"

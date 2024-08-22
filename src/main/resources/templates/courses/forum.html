@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <th:block
+      th:insert="~{fragments/head :: head(title=${forum.title} + ' | AlgoLMS')}"
+    ></th:block>
+  </head>
+  <body>
+    <th:block th:insert="~{fragments/header :: header}"></th:block>
+    <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-neutral-900">
+      <th:block
+        th:insert="~{fragments/sidebar-toggle :: sidebar-toggle}"
+      ></th:block>
+      <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block>
+      <div class="w-full lg:ps-64">
+        <div class="p-4 sm:p-7 space-y-4 sm:space-y-7">
+          <div class="md:flex justify-between">
+            <h1 th:text="${forum.title}"></h1>
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="hs-bg-gray-on-hover-cards"
+              data-hs-overlay="#hs-bg-gray-on-hover-cards"
+              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-plus size-4"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+              </svg>
+              Dodaj novu objavu
+            </button>
+            <div
+              id="hs-bg-gray-on-hover-cards"
+              class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
+              role="dialog"
+              tabindex="-1"
+              aria-labelledby="hs-bg-gray-on-hover-cards-label"
+            >
+              <div
+                class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
+              >
+                <form
+                  th:action="@{'/courses/' + ${course.courseId} + '/forum/createForumPost'}"
+                  method="POST"
+                  class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70"
+                >
+                  <input
+                    type="hidden"
+                    name="courseId"
+                    th:value="${course.courseId}"
+                  />
+                  <input
+                    type="hidden"
+                    name="forumId"
+                    th:value="${forum.forumId}"
+                  />
+                  <input
+                    type="hidden"
+                    name="userId"
+                    th:value="${user.userId}"
+                  />
+                  <div
+                    class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-800"
+                  >
+                    <h3
+                      id="hs-bg-gray-on-hover-cards-label"
+                      class="font-bold text-gray-800 dark:text-neutral-200"
+                    >
+                      Dodaj novu objavu
+                    </h3>
+                    <button
+                      type="button"
+                      class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
+                      aria-label="Close"
+                      data-hs-overlay="#hs-bg-gray-on-hover-cards"
+                    >
+                      <span class="sr-only">Close</span>
+                      <svg
+                        class="shrink-0 size-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="p-4 overflow-y-auto">
+                    <div
+                      class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
+                    >
+                      <div class="pb-3 sm:pb-6">
+                        <!-- Grid -->
+                        <div class="grid gap-2">
+                          <div class="sm:col-span-3">
+                            <label
+                              for="title"
+                              class="inline-block text-sm text-gray-800 mt-2.5 dark:text-neutral-200"
+                            >
+                              Naslov objave
+                            </label>
+                          </div>
+                          <!-- End Col -->
+
+                          <div class="sm:col-span-9">
+                            <input
+                              id="title"
+                              name="title"
+                              type="text"
+                              class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                              placeholder="Unesite naslov objave"
+                              required
+                            />
+                          </div>
+                          <div class="sm:col-span-3">
+                            <div class="inline-block">
+                              <label
+                                for="content"
+                                class="inline-block text-sm text-gray-800 mt-2.5 dark:text-neutral-200"
+                              >
+                                Tekst objave
+                              </label>
+                            </div>
+                          </div>
+                          <!-- End Col -->
+
+                          <div class="sm:col-span-9">
+                            <textarea
+                              name="content"
+                              id="content"
+                              class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                              rows="6"
+                              placeholder="Unesite tekst objave"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <!-- End Grid -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-800"
+                  >
+                    <button
+                      type="submit"
+                      class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    >
+                      Dodaj objavu
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div
+            th:each="postData : ${forumPosts}"
+            class="bg-white rounded-xl shadow p-4 dark:text-neutral-200 dark:bg-neutral-800"
+          >
+            <h2
+              th:text="${postData.post.title}"
+              class="text-2xl font-bold mb-4"
+            ></h2>
+            <div class="flex gap-3">
+              <img
+                th:if="${postData.userProfile.profilePicture}"
+                class="shrink-0 size-[38px] rounded-full"
+                th:src="${userProfile.profilePicture}"
+                alt="Avatar"
+              />
+              <div
+                th:unless="${postData.userProfile.profilePicture}"
+                th:text="${#strings.substring(postData.post.user.fullName,0,1)}"
+                class="shrink-0 size-[38px] rounded-full grid place-items-center text-lg text-gray-800 dark:text-neutral-200 bg-gray-100 dark:bg-neutral-700"
+              ></div>
+              <div>
+                <p
+                  class="font-semibold text-gray-800 dark:text-neutral-200"
+                  th:text="${postData.post.user.fullName}"
+                ></p>
+                <p
+                  class="mb-2 text-xs font-medium text-gray-500 dark:text-neutral-400"
+                  th:text="${postData.formattedTime}"
+                ></p>
+              </div>
+            </div>
+
+            <p
+              th:utext="${#strings.abbreviate(postData.post.content, 200)}"
+              class="mb-2"
+            ></p>
+            <a
+              href="#"
+              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-100 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:text-neutral-200 border-gray-200 active:bg-white text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none transition-colors focus:outline-none focus:bg-gray-100 active:dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-reply shrink-0 size-4 mb-0.5"
+              >
+                <polyline points="9 17 4 12 9 7" />
+                <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+              </svg>
+              Odgovori
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

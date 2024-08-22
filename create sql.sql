@@ -194,9 +194,20 @@ CREATE TABLE forum_posts (
     post_id INT AUTO_INCREMENT PRIMARY KEY,
     forum_id INT,
     user_id INT,
+    title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (forum_id) REFERENCES forums(forum_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE forum_post_replies (
+	reply_id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT,
+    user_id INT,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES forum_posts(forum_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 

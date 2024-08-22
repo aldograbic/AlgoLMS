@@ -5,7 +5,7 @@
   <nav class="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
     <div class="me-5 lg:me-0 lg:hidden">
       <a
-        class="flex-none rounded-md text-lg inline-block font-semibold focus:outline-none focus:opacity-80"
+        class="flex-none rounded-md text-lg inline-block font-semibold focus:outline-none focus:opacity-80 dark:text-neutral-200"
         href="/dashboard"
         aria-label="AlgoLMS"
       >
@@ -140,6 +140,28 @@
           class="size-[38px] relative inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
         >
           <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-message-square shrink-0 size-4"
+          >
+            <path
+              d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+            />
+          </svg>
+          <span class="sr-only">Messages</span>
+        </button>
+        <button
+          type="button"
+          class="size-[38px] relative inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+        >
+          <svg
             class="shrink-0 size-4"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -157,27 +179,7 @@
           <span class="sr-only">Notifications</span>
         </button>
 
-        <button
-          type="button"
-          class="size-[38px] relative inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-        >
-          <svg
-            class="shrink-0 size-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-          </svg>
-          <span class="sr-only">Activity</span>
-        </button>
-
+        <span class="border-l h-8 ml-2 mr-4 dark:border-neutral-700"></span>
         <!-- Dropdown -->
         <div
           class="hs-dropdown [--placement:bottom-right] relative inline-flex"
