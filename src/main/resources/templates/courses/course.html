@@ -14,6 +14,7 @@
         th:insert="~{fragments/sidebar-toggle :: sidebar-toggle}"
       ></th:block>
       <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block>
+
       <div
         class="relative flex justify-center items-center lg:ps-64 h-40 rounded-t-xl bg-blue-600 text-neutral-200 bg-no-repeat bg-cover bg-center"
       >
@@ -64,6 +65,15 @@
         </div>
       </div>
       <div class="w-full lg:ps-64">
+        <th:block
+          th:insert="~{fragments/successMessage :: successMessage}"
+        ></th:block>
+        <th:block
+          th:insert="~{fragments/errorMessage :: errorMessage}"
+        ></th:block>
+        <th:block
+          th:insert="~{fragments/infoMessage :: infoMessage}"
+        ></th:block>
         <div class="p-4 sm:p-7 space-y-4 sm:space-y-7">
           <div class="md:flex justify-between">
             <h1 th:text="${course.title}" class="text-3xl"></h1>
@@ -666,23 +676,23 @@
                             <div
                               id="hs-file-upload"
                               data-hs-file-upload='{
-                            "url": "/upload",
-                            "extensions": {
-                              "default": {
-                                "class": "shrink-0 size-5"
-                              },
-                              "xls": {
-                                "class": "shrink-0 size-5"
-                              },
-                              "zip": {
-                                "class": "shrink-0 size-5"
-                              },
-                              "csv": {
-                                "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
-                                "class": "shrink-0 size-5"
-                              }
-                            }
-                          }'
+        "url": "/courses/[[${course.courseId}]]/addResources",
+        "extensions": {
+            "default": {
+                "class": "shrink-0 size-5"
+            },
+            "xls": {
+                "class": "shrink-0 size-5"
+            },
+            "zip": {
+                "class": "shrink-0 size-5"
+            },
+            "csv": {
+                "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4\"/><path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/><path d=\"m5 12-3 3 3 3\"/><path d=\"m9 18 3-3-3-3\"/></svg>",
+                "class": "shrink-0 size-5"
+            }
+        }
+    }'
                             >
                               <template data-hs-file-upload-preview="">
                                 <div
@@ -710,7 +720,6 @@
                                             name="fileTitles"
                                             class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             data-hs-file-upload-file-name=""
-                                            value=""
                                             required
                                           />
                                         </p>
@@ -799,6 +808,13 @@
                                 class="cursor-pointer p-12 flex justify-center bg-white border border-dashed border-gray-300 rounded-xl dark:bg-neutral-800 dark:border-neutral-600"
                                 data-hs-file-upload-trigger=""
                               >
+                                <input
+                                  id="file"
+                                  name="files"
+                                  type="file"
+                                  class="sr-only"
+                                  multiple
+                                />
                                 <div class="text-center">
                                   <svg
                                     class="w-16 text-gray-400 mx-auto dark:text-neutral-400"

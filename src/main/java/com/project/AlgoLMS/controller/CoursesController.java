@@ -215,16 +215,15 @@ public class CoursesController {
 
     @PostMapping("/{courseId}/addResources")
     public String addResources(@PathVariable("courseId") Long courseId,
-                               @RequestParam("files") MultipartFile[] files,
-                               @RequestParam("fileTitles") String[] fileTitles,
-                            //    @RequestParam("links") String[] links,
-                            //    @RequestParam("linkTitles") String[] linkTitles,
-                               RedirectAttributes redirectAttributes) {
+                            @RequestParam("files") MultipartFile[] files,
+                            @RequestParam("fileTitles") String[] fileTitles,
+                            RedirectAttributes redirectAttributes) {
         try {
             for (int i = 0; i < files.length; i++) {
                 MultipartFile file = files[i];
                 String title = fileTitles[i];
                 if (!file.isEmpty()) {
+
                     String fileUrl = fileUploadService.uploadFile(file);
     
                     CourseResource courseResourceFile = new CourseResource();
@@ -235,33 +234,16 @@ public class CoursesController {
                     courseRepository.saveCourseResources(courseResourceFile);
                 }
             }
-
-            // if (links != null) {
-            //     for (int i = 0; i < links.length; i++) {
-            //         String link = links[i];
-            //         String title = linkTitles[i];
-    
-            //         if (!link.isEmpty()) {
-            //             CourseResource courseResourceLink = new CourseResource();
-            //             courseResourceLink.setCourseId(courseId);
-            //             courseResourceLink.setTitle(title);
-            //             courseResourceLink.setType("link");
-            //             courseResourceLink.setLink(link);
-            //             courseRepository.saveCourseResources(courseResourceLink);
-            //         }
-            //     }
-            // }
     
             redirectAttributes.addFlashAttribute("success", "Dodatni resursi uspješno dodani!");
-
+    
         } catch (IOException e) {
-
             redirectAttributes.addFlashAttribute("error", "Došlo je do pogreške pri uploadu resursa.");
             return "redirect:/courses/" + courseId;
         }
     
         return "redirect:/courses/" + courseId;
-    }
+    }    
 
     @GetMapping("/my")
     public String getMyCoursesPage(Model model) {
