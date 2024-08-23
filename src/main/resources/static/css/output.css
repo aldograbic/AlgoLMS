@@ -874,8 +874,8 @@ button {
   bottom: 0px;
 }
 
-.bottom-4 {
-  bottom: 1rem;
+.bottom-0 {
+  bottom: 0px;
 }
 
 .bottom-full {
@@ -892,6 +892,14 @@ button {
 
 .end-1 {
   inset-inline-end: 0.25rem;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.right-0 {
+  right: 0px;
 }
 
 .right-2 {
@@ -1818,6 +1826,10 @@ button {
   padding: 1.5rem;
 }
 
+.p-7 {
+  padding: 1.75rem;
+}
+
 .p-px {
   padding: 1px;
 }
@@ -1897,6 +1909,10 @@ button {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-\[8\.5rem\] {
+  padding-bottom: 8.5rem;
 }
 
 .pe-1 {
@@ -3339,25 +3355,12 @@ button {
     bottom: 0px;
   }
 
-  .lg\:bottom-7 {
-    bottom: 1.75rem;
-  }
-
   .lg\:end-auto {
     inset-inline-end: auto;
   }
 
   .lg\:left-64 {
     left: 16rem;
-  }
-
-  .lg\:right-0 {
-    right: 0px;
-  }
-
-  .lg\:mx-7 {
-    margin-left: 1.75rem;
-    margin-right: 1.75rem;
   }
 
   .lg\:me-0 {
