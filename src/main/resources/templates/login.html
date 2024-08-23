@@ -3,7 +3,7 @@
   <head th:insert="~{fragments/head :: head(title='Prijava | AlgoLMS')}"></head>
   <body>
     <div class="flex min-h-screen dark:bg-neutral-900 dark:text-neutral-200">
-      <div class="bg-black p-10 text-white flex flex-col">
+      <div class="bg-blue-600 p-10 text-white flex flex-col">
         <a href="/" class="font-semibold text-lg">AlgoLMS</a>
         <script
           type="module"
@@ -61,12 +61,12 @@
               </svg>
             </button>
             <h1 class="text-2xl font-bold mb-4">Prijava</h1>
-            <form action="/login" method="post">
+            <form action="/login" method="post" class="space-y-4">
               <input
                 type="email"
                 name="email"
                 id="email"
-                class="block w-full rounded-md border-0 mt-2 mb-4 shadow-sm py-2 pl-3 ring-1 ring-gray-300 placeholder:text-gray-400 text-sm leading-5"
+                class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 placeholder="Vaša e-mail adresa"
                 autocomplete="email"
               />
@@ -74,7 +74,7 @@
                 type="password"
                 name="password"
                 id="password"
-                class="block w-full rounded-md border-0 mb-4 shadow-sm py-2 pl-3 ring-1 ring-gray-300 placeholder:text-gray-400 text-sm leading-5"
+                class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 placeholder="Vaša lozinka"
                 autocomplete="current-password"
               />
@@ -98,12 +98,16 @@
                 type="text"
                 name="email"
                 id="email"
-                class="block w-full rounded-md border-0 mt-6 mb-2 shadow-sm py-1.5 pl-2 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                class="py-2 px-3 pe-11 mt-6 mb-2 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                 placeholder="name@example.com"
                 required
                 autocomplete="email"
               />
-              <input type="submit" value="Registracija s e-mail adresom" />
+              <input
+                type="submit"
+                value="Registracija s e-mail adresom"
+                class=""
+              />
             </form>
             <div class="flex items-center mt-6 w-full">
               <div class="border-t border-gray-300 flex-grow"></div>

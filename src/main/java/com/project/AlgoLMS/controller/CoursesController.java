@@ -26,6 +26,7 @@ import com.project.AlgoLMS.model.courseResource.CourseResource;
 import com.project.AlgoLMS.model.enrollment.Enrollment;
 import com.project.AlgoLMS.model.forum.Forum;
 import com.project.AlgoLMS.model.forum.ForumPost;
+import com.project.AlgoLMS.model.forum.ForumPostReply;
 import com.project.AlgoLMS.model.user.User;
 import com.project.AlgoLMS.model.userProfile.UserProfile;
 import com.project.AlgoLMS.repository.course.CourseRepository;
@@ -317,5 +318,37 @@ public class CoursesController {
         forumRepository.createForumPost(forumPost);
 
         return "courses/forum";
+    }
+
+    @GetMapping("/{courseId}/forum/{postId}")
+    public String getCourseForumPostPage(@PathVariable("courseId") Long courseId, @PathVariable("postId") Long postId, Model model) {
+
+        Forum forum = forumRepository.getForumByCourseId(courseId);
+        model.addAttribute("forum", forum);
+
+        Course course = courseRepository.findById(courseId);
+        model.addAttribute("course", course);
+
+        ForumPost forumPost = forumRepository.getForumPostByPostId(postId);
+        model.addAttribute("forumPost", forumPost);
+
+        List<ForumPostReply> postReplies = forumRepository.getForumPostRepliesByPostId(postId);
+
+        TimeAgoFormatter formatter = new TimeAgoFormatter();
+        List<Map<String, Object>> formattedPostReplies = new ArrayList<>();
+        for (ForumPostReply postReply : postReplies) {
+
+            UserProfile userProfile = userRepository.getUserProfileByUserId(postReply.getUserId());
+
+            Map<String, Object> repliesMap = new HashMap<>();
+            repliesMap.put("postReply", postReply);
+            repliesMap.put("formattedTime", formatter.formatTimeAgo(postReply.getCreatedAt()));
+            repliesMap.put("userProfile", userProfile);
+            formattedPostReplies.add(repliesMap);
+        }
+
+        model.addAttribute("postReplies", formattedPostReplies);
+
+        return "courses/forumPost";
     }
 }

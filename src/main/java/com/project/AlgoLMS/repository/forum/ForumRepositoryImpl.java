@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.project.AlgoLMS.model.forum.Forum;
 import com.project.AlgoLMS.model.forum.ForumPost;
+import com.project.AlgoLMS.model.forum.ForumPostReply;
+import com.project.AlgoLMS.model.forum.ForumPostReplyRowMapper;
 import com.project.AlgoLMS.model.forum.ForumPostRowMapper;
 import com.project.AlgoLMS.repository.user.UserRepository;
 
@@ -44,5 +46,18 @@ public class ForumRepositoryImpl implements ForumRepository{
     public List<ForumPost> getForumPostsByForumId(Long forumId) {
         String sql = "SELECT * FROM forum_posts WHERE forum_id = ? ORDER BY created_at DESC";
         return jdbcTemplate.query(sql, new ForumPostRowMapper(userRepository), forumId);
+    }
+
+    @Override
+    public ForumPost getForumPostByPostId(Long postId) {
+        String sql = "SELECT * FROM forum_posts WHERE post_id = ?";
+        List<ForumPost> forumPosts = jdbcTemplate.query(sql, new ForumPostRowMapper(userRepository), postId);
+        return forumPosts.isEmpty() ? null : forumPosts.get(0);
+    }
+
+    @Override
+    public List<ForumPostReply> getForumPostRepliesByPostId(Long postId) {
+        String sql = "SELECT * FROM forum_post_replies WHERE post_id = ? ORDER BY created_at DESC";
+        return jdbcTemplate.query(sql, new ForumPostReplyRowMapper(userRepository), postId);
     }
 }
