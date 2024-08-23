@@ -332,6 +332,12 @@ public class CoursesController {
         ForumPost forumPost = forumRepository.getForumPostByPostId(postId);
         model.addAttribute("forumPost", forumPost);
 
+        TimeAgoFormatter formatterPost = new TimeAgoFormatter();
+        model.addAttribute("formatterPost", formatterPost.formatTimeAgo(forumPost.getCreatedAt()));
+
+        UserProfile postUserProfile = userRepository.getUserProfileByUserId(forumPost.getUserId());
+        model.addAttribute("postUserProfile", postUserProfile);
+
         List<ForumPostReply> postReplies = forumRepository.getForumPostRepliesByPostId(postId);
 
         TimeAgoFormatter formatter = new TimeAgoFormatter();
@@ -350,5 +356,17 @@ public class CoursesController {
         model.addAttribute("postReplies", formattedPostReplies);
 
         return "courses/forumPost";
+    }
+
+    @PostMapping("/{courseId}/forum/{postId}/reply")
+    public String replyToForumPost(@PathVariable("courseId") Long courseId, 
+                                 @PathVariable("postId") Long postId,
+                                 @ModelAttribute("forumPostReply") ForumPostReply forumPostReply,
+                                 RedirectAttributes redirectAttributes,
+                                 Model model) {
+                                
+        forumRepository.replyToForumPost(forumPostReply);
+
+        return "redirect:/courses/" + courseId + "/forum/" + postId;
     }
 }

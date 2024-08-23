@@ -14,12 +14,106 @@
       <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block>
       <div class="w-full lg:ps-64">
         <div class="p-4 sm:p-7 space-y-4 sm:space-y-7">
+          <div
+            class="bg-white rounded-xl shadow p-4 dark:text-neutral-200 dark:bg-neutral-800"
+          >
+            <h2
+              th:text="${forumPost.title}"
+              class="text-2xl font-bold mb-4"
+            ></h2>
+            <div class="flex gap-3">
+              <img
+                th:if="${postUserProfile.profilePicture}"
+                class="shrink-0 size-[38px] rounded-full"
+                th:src="${postUserProfile.profilePicture}"
+                alt="Avatar"
+              />
+              <div
+                th:unless="${postUserProfile.profilePicture}"
+                th:text="${#strings.substring(forumPost.user.fullName,0,1)}"
+                class="shrink-0 size-[38px] rounded-full grid place-items-center text-lg text-gray-800 dark:text-neutral-200 bg-gray-100 dark:bg-neutral-700"
+              ></div>
+              <div>
+                <p
+                  class="font-semibold text-gray-800 dark:text-neutral-200"
+                  th:text="${forumPost.user.fullName}"
+                ></p>
+                <p
+                  class="mb-2 text-xs font-medium text-gray-500 dark:text-neutral-400"
+                  th:text="${formatterPost}"
+                ></p>
+              </div>
+            </div>
+
+            <p th:text="${forumPost.content}" class="mb-2"></p>
+            <a
+              th:href="${'/courses/' + course.courseId + '/forum/' + forumPost.postId}"
+              class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-gray-100 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:text-neutral-200 border-gray-200 active:bg-white text-gray-800 shadow-sm disabled:opacity-50 disabled:pointer-events-none transition-colors focus:outline-none focus:bg-gray-100 active:dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-reply shrink-0 size-4 mb-0.5"
+              >
+                <polyline points="9 17 4 12 9 7" />
+                <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+              </svg>
+              Odgovori
+            </a>
+          </div>
+
+          <div
+            th:each="reply : ${postReplies}"
+            class="bg-white rounded-xl shadow p-4 dark:text-neutral-200 dark:bg-neutral-800"
+          >
+            <div class="flex gap-3">
+              <img
+                th:if="${reply.userProfile.profilePicture}"
+                class="shrink-0 size-[38px] rounded-full"
+                th:src="${reply.userProfile.profilePicture}"
+                alt="Avatar"
+              />
+              <div
+                th:unless="${reply.userProfile.profilePicture}"
+                th:text="${#strings.substring(reply.postReply.user.fullName,0,1)}"
+                class="shrink-0 size-[38px] rounded-full grid place-items-center text-lg text-gray-800 dark:text-neutral-200 bg-gray-100 dark:bg-neutral-700"
+              ></div>
+              <div>
+                <p
+                  class="font-semibold text-gray-800 dark:text-neutral-200"
+                  th:text="${reply.postReply.user.fullName}"
+                ></p>
+                <p
+                  class="mb-2 text-xs font-medium text-gray-500 dark:text-neutral-400"
+                  th:text="${reply.formattedTime}"
+                ></p>
+              </div>
+            </div>
+
+            <p th:utext="${reply.postReply.content}" class="mb-2"></p>
+          </div>
+
           <!-- Textarea -->
-          <div class="fixed bottom-6 w-full">
+          <form
+            th:action="${'/courses/' + course.courseId + '/forum/' + forumPost.postId + '/reply'}"
+            method="POST"
+            class="fixed bottom-4 lg:bottom-7 lg:left-64 lg:right-0 lg:mx-7"
+          >
+            <input type="hidden" name="userId" th:value="${user.userId}" />
+            <input type="hidden" name="postId" th:value="${forumPost.postId}" />
             <textarea
               id="hs-textarea-ex-1"
+              name="content"
               class="p-4 pb-12 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               placeholder="Unesite vaš odgovor ovdje..."
+              autofocus
             ></textarea>
 
             <!-- Toolbar -->
@@ -108,7 +202,7 @@
 
                   <!-- Send Button -->
                   <button
-                    type="button"
+                    type="submit"
                     class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:bg-blue-500"
                   >
                     <svg
@@ -130,7 +224,7 @@
               </div>
             </div>
             <!-- End Toolbar -->
-          </div>
+          </form>
           <!-- End Textarea -->
         </div>
       </div>

@@ -14,4 +14,5 @@ public interface ForumRepository {
     List<ForumPost> getForumPostsByForumId(Long forumId);
     ForumPost getForumPostByPostId(Long postId);
     List<ForumPostReply> getForumPostRepliesByPostId(Long postId);
+    void replyToForumPost(ForumPostReply forumPostReply);
 }

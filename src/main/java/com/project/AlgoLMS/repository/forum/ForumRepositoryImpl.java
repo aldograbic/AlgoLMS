@@ -57,7 +57,13 @@ public class ForumRepositoryImpl implements ForumRepository{
 
     @Override
     public List<ForumPostReply> getForumPostRepliesByPostId(Long postId) {
-        String sql = "SELECT * FROM forum_post_replies WHERE post_id = ? ORDER BY created_at DESC";
+        String sql = "SELECT * FROM forum_post_replies WHERE post_id = ? ORDER BY created_at ASC";
         return jdbcTemplate.query(sql, new ForumPostReplyRowMapper(userRepository), postId);
+    }
+
+    @Override
+    public void replyToForumPost(ForumPostReply forumPostReply) {
+        String sql = "INSERT INTO forum_post_replies (post_id, user_id, content) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, forumPostReply.getPostId(), forumPostReply.getUserId(), forumPostReply.getContent());
     }
 }

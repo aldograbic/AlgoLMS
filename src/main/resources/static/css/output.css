@@ -874,8 +874,8 @@ button {
   bottom: 0px;
 }
 
-.bottom-6 {
-  bottom: 1.5rem;
+.bottom-4 {
+  bottom: 1rem;
 }
 
 .bottom-full {
@@ -3339,8 +3339,25 @@ button {
     bottom: 0px;
   }
 
+  .lg\:bottom-7 {
+    bottom: 1.75rem;
+  }
+
   .lg\:end-auto {
     inset-inline-end: auto;
+  }
+
+  .lg\:left-64 {
+    left: 16rem;
+  }
+
+  .lg\:right-0 {
+    right: 0px;
+  }
+
+  .lg\:mx-7 {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
   }
 
   .lg\:me-0 {
