@@ -1,4 +1,4 @@
-# AlgoLMS - Sustav za Upravljanje Učenjem (LMS)
+# AlgoLMS - Sustav za upravljanje učenjem (LMS)
 
 AlgoLMS je web aplikacija za upravljanje učenjem (LMS) koja omogućava jednostavno kreiranje, upravljanje i praćenje obrazovnih sadržaja. Cilj aplikacije je olakšati nastavnicima i učenicima organizaciju online obrazovnih aktivnosti.
 
